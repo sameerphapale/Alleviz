@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Admin\Desktop\NDA_New</_PublishTargetUrl>
+    <History>True|2021-05-08T10:38:36.8270725Z;True|2021-05-08T15:31:40.7511083+05:30;True|2021-05-08T15:23:51.6675852+05:30;True|2021-05-08T15:03:38.1913256+05:30;True|2021-05-08T14:27:48.7974659+05:30;True|2021-05-08T13:47:17.3735536+05:30;True|2021-05-08T11:00:08.2584630+05:30;True|2021-05-08T10:41:29.1496536+05:30;True|2021-05-08T10:25:54.5170137+05:30;True|2021-05-08T10:05:11.0308210+05:30;</History>
+  </PropertyGroup>
+</Project>

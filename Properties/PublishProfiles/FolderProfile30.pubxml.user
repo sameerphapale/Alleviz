@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Admin\Desktop\Visitrack</_PublishTargetUrl>
+    <History>True|2022-01-10T06:51:33.0277826Z;True|2022-01-10T09:50:48.8057781+05:30;True|2022-01-07T18:02:20.1375472+05:30;True|2022-01-07T11:40:42.6808392+05:30;True|2022-01-07T10:57:21.0717938+05:30;</History>
+  </PropertyGroup>
+</Project>
