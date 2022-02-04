@@ -14,11 +14,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using VisitorManagementSystemWebApi.Model;
+using VisitorManagementSystemWebApi.Services;
 
 namespace VisitorManagementSystemWebApi
 {
     public class Startup
     {
+     
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -67,6 +70,10 @@ namespace VisitorManagementSystemWebApi
                     });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, Services.MailService>();
         }
 
 
@@ -110,7 +117,5 @@ namespace VisitorManagementSystemWebApi
             return connString;
 
         }
-
-       
     }
 }
