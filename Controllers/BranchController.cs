@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using VisitorManagementSystemWebApi.App_Code;
 using VisitorManagementSystemWebApi.App_Code.DAL.Master;
+using VisitorManagementSystemWebApi.Model.Master;
 using static VisitorManagementSystemWebApi.Model.Master.Branch;
 
 namespace VisitorManagementSystemWebApi.Controllers
@@ -29,7 +30,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult InsertBranchEntry([FromBody] BranchInsert branchInsert)
+        public ActionResult InsertBranchEntry([FromBody] Branch branchInsert)
         {
             Int32 Result = 0;
             try
@@ -41,7 +42,7 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return Ok(-1); }
         }
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
 
         public ActionResult GetBranchDeatils()
         {
@@ -69,7 +70,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult UpdateBranchDetails([FromForm] BranchUpdate branchUpdate)
+        public ActionResult UpdateBranchDetails([FromForm] Branch branchUpdate)
         {
             try
             {

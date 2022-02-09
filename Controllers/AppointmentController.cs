@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using VisitorManagementSystemWebApi.App_Code;
 using VisitorManagementSystemWebApi.App_Code.DAL.Visitor;
+using VisitorManagementSystemWebApi.Model.Visitor;
 using static VisitorManagementSystemWebApi.Model.Visitor.Appointment;
 
 namespace VisitorManagementSystemWebApi.Controllers
@@ -25,15 +26,14 @@ namespace VisitorManagementSystemWebApi.Controllers
             Appdal = new AppointmentDal();
         }
 
-        [HttpPost]
         //[Authorize(Roles = "Admin")]
-
-        public ActionResult InsertAppointmentEntry([FromBody] AppointmentInsert AppointmentInsert)
+        [HttpPost]
+        public ActionResult InsertVisitorAppointmenntData([FromBody] Appointment AppointmentInsert)
         {
             Int32 Result = 0;
             try
             {
-                Result = Appdal.InsertAppointmenntData(AppointmentInsert);
+                Result = Appdal.InsertVisitorAppointmenntData(AppointmentInsert);
 
                 return Ok(Result);
             }
@@ -61,6 +61,19 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.GetAppointmentDeatilsByID(Visiid));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetAppointmentDeatilsByEmpID(long Empid)
+        {
+            try
+            {
+                return Ok(Appdal.GetAppointmentDeatilsByEmpID(Empid));
             }
 
             catch (Exception) { return null; }

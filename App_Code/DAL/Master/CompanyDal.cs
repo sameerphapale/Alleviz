@@ -54,10 +54,8 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
                     List.CompID = Convert.ToInt64(dt.Rows[i]["CompID"].ToString());
                     List.CompName = dt.Rows[i]["CompName"].ToString();
-                    //List.CompanyLogo = dt.Rows[i]["CompanyLogo"].ToString();
                     string s = (string)dt.Rows[i]["CompanyLogo"].ToString();
                     byte[] data = Convert.FromBase64String(s);
-                    //var temp =   Convert.ToByte(dt.Rows[i]["CompanyLogo"].ToString());
                     List.CompanyLogo = data;
 
                     Lists.Add(List);

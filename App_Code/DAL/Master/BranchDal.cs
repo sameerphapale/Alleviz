@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using VisitorManagementSystemWebApi.Model.Master;
 using static VisitorManagementSystemWebApi.Model.Master.Branch;
 
 namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 {
     public class BranchDal
     {
-        public Int32 InsertBranchData(BranchInsert branchInsert)
+        public Int32 InsertBranchData(Branch branchInsert)
         {
             try
             {
@@ -32,12 +33,12 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
             }
         }
-        public List<BranchDetails> GetBranchDeatils()
+        public List<Branch> GetBranchDeatils()
         {
             try
             {
                 DataTable dt = new DataTable();
-                List<BranchDetails> Lists = new List<BranchDetails>();
+                List<Branch> Lists = new List<Branch>();
 
                 SqlCommand cmd = new SqlCommand("SP_BranchMaster");
 
@@ -47,12 +48,12 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    BranchDetails List = new BranchDetails();
+                    Branch List = new Branch();
 
                     List.BranchID = Convert.ToInt64(dt.Rows[i]["BranchID"].ToString());
                     List.BranchName = dt.Rows[i]["BranchName"].ToString();
                     List.Address = dt.Rows[i]["Address"].ToString();
-                
+                    List.Command = "SELECT";
                     Lists.Add(List);
                 }
                 return Lists;
@@ -68,12 +69,12 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
         }
 
 
-        public List<BranchDetails> GetBranchDeatilsById(long BranchID)
+        public List<Branch> GetBranchDeatilsById(long BranchID)
         {
             try
             {
                 DataTable dt = new DataTable();
-                List<BranchDetails> Lists = new List<BranchDetails>();
+                List<Branch> Lists = new List<Branch>();
 
                 SqlCommand cmd = new SqlCommand("SP_BranchMaster");
 
@@ -84,7 +85,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    BranchDetails List = new BranchDetails();
+                    Branch List = new Branch();
 
                     List.BranchID = Convert.ToInt64(dt.Rows[i]["BranchID"].ToString());
                     List.BranchName = dt.Rows[i]["BranchName"].ToString();
@@ -103,7 +104,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
             }
         }
-        public Int32 UpdateBranchDetails(BranchUpdate branchUpdate)
+        public Int32 UpdateBranchDetails(Branch branchUpdate)
         {
             try
             {
