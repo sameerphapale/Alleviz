@@ -43,6 +43,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
             public string VisiEmailID { get; set; }
             public string VisiDesigName { get; set; }
             public string VehicleNo { get; set; }
+            public string VisitorType { get; set; }
 
             public string IDProof { get; set; }
             public string IDProofNumber { get; set; }
@@ -125,6 +126,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
             public DateTime EntryDate { get; set; }
             public DateTime InDate { get; set; }
             public string QRCode { get; set; }
+            public Byte[] VisiPhoto { get; set; }
         }
 
         public class AppointmentStartEnd

@@ -123,6 +123,69 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
                     List.Visiid = Convert.ToInt64(dt.Rows[i]["Visiid"].ToString());
                     List.Assets = dt.Rows[i]["Assets"].ToString();
+                    List.VisitorType = dt.Rows[i]["VisitorType"].ToString().Trim();
+                    List.VisiName = dt.Rows[i]["VisiName"].ToString();
+                    List.VehicleNo = dt.Rows[i]["VehicleNo"].ToString();
+                    List.VisiDesigName = dt.Rows[i]["VisiDesigName"].ToString();
+                    List.VisiAdd = dt.Rows[i]["VisiAdd"].ToString();
+                    List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
+                    List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
+                    List.Visi_cat_id = Convert.ToInt64(dt.Rows[i]["Visi_cat_id"].ToString());
+                    List.BranchID_visit = Convert.ToInt64(dt.Rows[i]["BranchID_visit"].ToString());
+                    List.Deptid_visit = Convert.ToInt64(dt.Rows[i]["Deptid_visit"].ToString());
+                    List.Purpose_id = Convert.ToInt64(dt.Rows[i]["Purpose_id"].ToString());
+                    List.Empid = Convert.ToInt64(dt.Rows[i]["Empid"].ToString());
+                    List.VisiEmailID = dt.Rows[i]["VisiEmailID"].ToString();
+                    List.AppDatefrom = Convert.ToDateTime(dt.Rows[i]["AppDatefrom"].ToString());
+                    List.AppDateTo = Convert.ToDateTime(dt.Rows[i]["AppDateTo"].ToString());
+                    List.AppTimefrom = Convert.ToDateTime(dt.Rows[i]["AppTimefrom"].ToString());
+                    List.AppTimeto = Convert.ToDateTime(dt.Rows[i]["AppTimeto"].ToString());
+
+
+                    List.IDProof = dt.Rows[i]["IDProof"].ToString();
+                    List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
+                    List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
+                    List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
+                    List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
+                    List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
+                    List.InDate = Convert.ToDateTime(dt.Rows[i]["InDate"].ToString());
+
+
+                    Lists.Add(List);
+                }
+                return Lists;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+        }
+
+
+        public List<AppointmentDetails> GetAppointmentDeatilsByEmpID(long Empid)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                List<AppointmentDetails> Lists = new List<AppointmentDetails>();
+
+                SqlCommand cmd = new SqlCommand("SP_AppointmentDetails");
+
+                cmd.Parameters.AddWithValue("@Command", "BIND".ToString());
+                cmd.Parameters.AddWithValue("@Empid", Empid);
+
+                dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    AppointmentDetails List = new AppointmentDetails();
+
+                    List.Visiid = Convert.ToInt64(dt.Rows[i]["Visiid"].ToString());
+                    List.Assets = dt.Rows[i]["Assets"].ToString();
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.VehicleNo = dt.Rows[i]["VehicleNo"].ToString();
                     List.VisiDesigName = dt.Rows[i]["VisiDesigName"].ToString();
@@ -276,6 +339,9 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
                     List.InDate = Convert.ToDateTime(dt.Rows[i]["InDate"].ToString());
                     List.QRCode = dt.Rows[i]["QRCode"].ToString();
+                    string s = (string)dt.Rows[i]["VisiPhoto"].ToString();
+                    byte[] data = Convert.FromBase64String(s);
+                    List.VisiPhoto = data;
 
 
                     Lists.Add(List);

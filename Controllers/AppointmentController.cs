@@ -66,6 +66,19 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetAppointmentDeatilsByEmpID(long Empid)
+        {
+            try
+            {
+                return Ok(Appdal.GetAppointmentDeatilsByEmpID(Empid));
+            }
+
+            catch (Exception) { return null; }
+        }
+
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]

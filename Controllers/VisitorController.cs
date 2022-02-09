@@ -77,6 +77,19 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult UpdateSheduledVisitorDetails([FromForm] SheduledVisitorUpdate sheduledVisitorUpdate)
+        {
+            try
+            {
+                return Ok(visitordal.UpdateSheduledVisitorDetails(sheduledVisitorUpdate));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
 
        public ActionResult UpdatePersonalTimeLine([FromForm] VisitorTimeline visitorTimeline)
 
@@ -176,6 +189,79 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        [HttpGet]
+
+        public ActionResult GetDailyOutPassDetails()
+        {
+            try
+            {
+                return Ok(visitordal.GetDailyOutPassDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+
+        public ActionResult GetVisitorDetailsForBlack()
+        {
+            try
+            {
+                return Ok(visitordal.GetVisitorDetailsForBlack());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+
+        [HttpGet]
+
+        public ActionResult GetBlackVisitorDetails()
+        {
+            try
+            {
+                return Ok(visitordal.GetBlackVisitorDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+
+        public ActionResult GetFreeConfDetails()
+        {
+            try
+            {
+                return Ok(visitordal.GetFreeConfDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+
+        public ActionResult GetRePrintPassDetails()
+        {
+            try
+            {
+                return Ok(visitordal.GetRePrintPassDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+
+        public ActionResult GetPeriodicPassDetails()
+        {
+            try
+            {
+                return Ok(visitordal.GetPeriodicPassDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
         [HttpPost]
 
         public ActionResult GetTodayUnSheduledAppDetailsByName(string VisiName)
@@ -213,6 +299,43 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult DailyInVisitor(long Visiid)
+        {
+            try
+            {
+                return Ok(visitordal.DailyInVisitor(Visiid));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+      
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult ExitVisitor(long Visiid)
+        {
+            try
+            {
+                return Ok(visitordal.ExitVisitor(Visiid));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult BlackVisitor(long Visiid)
+        {
+            try
+            {
+                return Ok(visitordal.BlackVisitor(Visiid));
+            }
+
+            catch (Exception) { return null; }
+        }
 
     }
 }
