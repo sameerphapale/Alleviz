@@ -1,39 +1,35 @@
 ﻿using MailKit.Security;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using VisitorManagementSystemWebApi.App_Code;
+using VisitorManagementSystemWebApi.App_Code.DAL;
 using VisitorManagementSystemWebApi.Model;
 
 namespace VisitorManagementSystemWebApi.Services
 {
     public class MailService : IMailService
     {
-        private readonly int visitorCatId = 1;
-        private readonly MailSettings _mailSettings;
-        public MailService(IOptions<MailSettings> mailSettings)
+        //private readonly MailSettings _mailSettings;
+        //public MailService(IOptions<MailSettings> mailSettings)
+        //{
+        //    _mailSettings = mailSettings.Value;
+        //}
+        public void SendEmail(Int64 VISIID)
         {
-            _mailSettings = mailSettings.Value;
-        }
-
-   
-        public void SendingEmail(Int64 VISIID)
-        {
-
             DataSet dsEmail = new DataSet();
-            dsEmail = GetMailDetails(VISIID);
-            string Email = dsEmail.Tables[0].Rows[0][2].ToString();
+            dsEmail = EmailDAL.GetEMailDetails(VISIID);
+            string VisiEmail = dsEmail.Tables[0].Rows[0][2].ToString();
             string Subject = dsEmail.Tables[0].Rows[0][2].ToString();
             string Message = dsEmail.Tables[0].Rows[0][2].ToString();
+            string Sender = dsEmail.Tables[0].Rows[0][2].ToString();
+            string Host = dsEmail.Tables[0].Rows[0][2].ToString();
+            int Port = Convert.ToInt32(dsEmail.Tables[0].Rows[0][2]);
+            string Password = dsEmail.Tables[0].Rows[0][2].ToString();
             var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
-            email.To.Add(MailboxAddress.Parse(Email));
+            email.Sender = MailboxAddress.Parse(Sender);
+            email.To.Add(MailboxAddress.Parse(VisiEmail));
             email.Subject = Subject;
             var builder = new BodyBuilder();
             builder.HtmlBody = Message;
@@ -67,29 +63,15 @@ namespace VisitorManagementSystemWebApi.Services
 
             email.Body = builder.ToMessageBody();
             var smtp = new MailKit.Net.Smtp.SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+            //smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
+            //smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+            smtp.Connect(Host, Port, SecureSocketOptions.Auto);
+            smtp.Authenticate(Sender, Password);
             smtp.Send(email);
             smtp.Disconnect(true);
         }
 
+       
 
-        public DataSet GetMailDetails(Int64 VISIID)
-        {
-            DataSet ds = new DataSet();
-            try
-            {
-                SqlCommand cmd = new SqlCommand("SP_GATEMAILDETAILS");
-                cmd.Parameters.AddWithValue("@COMMAND", VISIID);
-                cmd.Parameters.AddWithValue("@VISIID", VISIID);
-                ds = SqlHelper.ExtecuteProcedureReturnDataSet(cmd);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-            return ds;
-
-        }
     }
 }
