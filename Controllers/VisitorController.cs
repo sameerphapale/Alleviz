@@ -36,20 +36,9 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception ex) { return Ok("-1"); }
         }
 
-        [HttpPost]
+        //[HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        //public ActionResult InsertVisitorEntry([FromBody] VisitorInsert visitorInsert)
-        // {
-        //    Int32 Result = 0;
-        //    try
-        //    {
-        //        Result = visitordal.InsertVisitorData(visitorInsert);
-
-        //        return Ok(Result);
-        //    }
-        //    catch (Exception) { return Ok(-1); }
-        //}
 
         [HttpPost]
         public ActionResult InsertVisitorEntry([FromBody] VisitorInsert visitorInsert)
