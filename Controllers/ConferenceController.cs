@@ -55,6 +55,16 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        public ActionResult GetFreeConfDetails()
+        {
+            try
+            {
+                return Ok(ConDAL.GetFreeConfDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         public ActionResult GetConferenceDeatilsById(long ConferenceID)

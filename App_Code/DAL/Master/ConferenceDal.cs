@@ -66,6 +66,42 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             }
         }
 
+        public List<ConferenceDetails> GetFreeConfDetails()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                List<ConferenceDetails> Lists = new List<ConferenceDetails>();
+
+                SqlCommand cmd = new SqlCommand("SP_ConferenceMaster");
+
+                cmd.Parameters.AddWithValue("@Command", "FreeConf".ToString());
+
+                dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    ConferenceDetails List = new ConferenceDetails();
+
+
+                    List.ConferenceID = Convert.ToInt64(dt.Rows[i]["ConID"].ToString());
+                    List.ConferenceName = dt.Rows[i]["ConName"].ToString();
+
+                    Lists.Add(List);
+                }
+                return Lists;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+        }
+
+
         public List<ConferenceDetails> GetConferenceDeatilsById(long ConferenceID)
         {
             try

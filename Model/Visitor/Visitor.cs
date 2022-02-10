@@ -274,7 +274,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
             public DateTime OutDate { get; set; }
             public string VisiName { get; set; }
             public string VisiCompany { get; set; }
-
+            //public DateTime OutDate { get; set; }
             public DateTime Premises_Time { get; set; }
             public DateTime AppDatefrom { get; set; }
             public DateTime AppDateTo { get; set; }

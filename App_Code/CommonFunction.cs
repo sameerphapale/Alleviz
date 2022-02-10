@@ -45,7 +45,7 @@ namespace VisitorManagementSystemWebApi.App_Code
 
         }
 
-        public static int SaveImageInDatabase(IFormFile image, long Visiid)
+        public static int SaveImageInDatabase(IFormFile image, long AppID)
         {
             Int32 Result = 0;
             byte[] bytedata;
@@ -61,10 +61,10 @@ namespace VisitorManagementSystemWebApi.App_Code
                             reader.BaseStream.CopyTo(ms);
                             bytedata = ms.ToArray();
                             strBase64 = Convert.ToBase64String(bytedata);
-                            SqlCommand cmd = new SqlCommand("SP_VisitorDetails");
+                            SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
                             cmd.Parameters.AddWithValue("@Command", "IMG_INSERT");
                             cmd.Parameters.AddWithValue("@FileData", strBase64);
-                            cmd.Parameters.AddWithValue("@Visiid", Visiid.ToString());
+                            cmd.Parameters.AddWithValue("@AppID", AppID.ToString());
                             Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
                         }
                     }

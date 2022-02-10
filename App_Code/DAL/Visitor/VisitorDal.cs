@@ -132,7 +132,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
                 cmd.Parameters.AddWithValue("@Command", "UPDATESecurity".ToString());
 
-                cmd.Parameters.AddWithValue("@Visiid", sheduledVisitorUpdate.Visiid.ToString());
+               // cmd.Parameters.AddWithValue("@Visiid", sheduledVisitorUpdate.Visiid.ToString());
                 cmd.Parameters.AddWithValue("@VisiName", sheduledVisitorUpdate.VisiName.ToString());
                 cmd.Parameters.AddWithValue("@VisiCompany", sheduledVisitorUpdate.VisiCompany.ToString());
                 //cmd.Parameters.AddWithValue("@VisiAdd", sheduledVisitorUpdate.VisiAdd.ToString());
