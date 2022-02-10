@@ -46,9 +46,6 @@ namespace VisitorManagementSystemWebApi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
-           // services.AddMvc();
-          
-
             services.AddOptions();
             services.AddMemoryCache();
             services.Configure<IpRateLimitOptions>(Configuration.GetSection("IpRateLimiting"));
@@ -57,10 +54,7 @@ namespace VisitorManagementSystemWebApi
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
             services.AddHttpContextAccessor();
-
             services.AddControllers();
-
-
             services.AddCors(options =>
                     {
                         options.AddPolicy("CorsPolicy",
@@ -70,9 +64,8 @@ namespace VisitorManagementSystemWebApi
                     });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
-
-
-            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            //services.Configure<EmailModel>(Configuration.GetSection("MailSettings"));
+            //services.Configure<EmailModel>(EmailModel);
             services.AddTransient<IMailService, Services.MailService>();
         }
 
@@ -111,9 +104,7 @@ namespace VisitorManagementSystemWebApi
 
         public  string GetString()
         {
-
             string connString = this.Configuration["ConnectionStrings:ConnectionString"];
-
             return connString;
 
         }

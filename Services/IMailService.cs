@@ -7,6 +7,6 @@ namespace VisitorManagementSystemWebApi.Services
 {
    public interface IMailService
     {
-        public void SendingEmail(Int64 VISIID);
+        public void SendEmail(Int64 VISIID);
     }
 }

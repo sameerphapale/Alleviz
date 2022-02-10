@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using VisitorManagementSystemWebApi.App_Code;
+using VisitorManagementSystemWebApi.App_Code.DAL;
 using VisitorManagementSystemWebApi.App_Code.DAL.Visitor;
+using VisitorManagementSystemWebApi.Services;
 using static VisitorManagementSystemWebApi.Model.Visitor.Visitor;
 
 namespace VisitorManagementSystemWebApi.Controllers
@@ -19,7 +21,8 @@ namespace VisitorManagementSystemWebApi.Controllers
     {
 
         VisitorDal visitordal;
-
+        EmailDAL objemail;
+        readonly private IMailService mailService;
         public VisitorController(IConfiguration Configuration)
         {
             SqlHelper helper = new SqlHelper(Configuration);
@@ -48,10 +51,10 @@ namespace VisitorManagementSystemWebApi.Controllers
         //    {
         //        Result = visitordal.InsertVisitorData(visitorInsert);
 
-        //        return Ok(Result);
-        //    }
-        //    catch (Exception) { return Ok(-1); }
-        //}
+                return Ok(Result);
+            }
+            catch (Exception) { return Ok(-1); }
+        }
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
