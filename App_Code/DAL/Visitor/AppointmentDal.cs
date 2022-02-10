@@ -61,7 +61,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("SP_VisitorDetails");
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
 
                 cmd.Parameters.AddWithValue("@command", objApp.Command.ToString());
                 cmd.Parameters.AddWithValue("@AppID", objApp.AppID.ToString());
