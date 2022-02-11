@@ -10373,7 +10373,6 @@ C:\Users\Admin\Desktop\02-Feb-Visitack\VisitorManagementSystemWebApi\obj\Debug\n
 C:\Users\Admin\Desktop\02-Feb-Visitack\VisitorManagementSystemWebApi\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.genruntimeconfig.cache
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\appsettings.Development.json
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\appsettings.json
-D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.StaticWebAssets.xml
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.exe
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.deps.json
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.runtimeconfig.json

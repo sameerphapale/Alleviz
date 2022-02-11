@@ -267,7 +267,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpGet]
         public ActionResult GetPurposeDeatils()
-         {
+        {
             try
             {
                 return Ok(Appdal.GetPurposeDeatils());
@@ -318,7 +318,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
 
-        public ActionResult GetPersonaltimelineStartEndTime(string AppDatefrom,long Empid)
+        public ActionResult GetPersonaltimelineStartEndTime(string AppDatefrom, long Empid)
         {
             try
             {
@@ -335,7 +335,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         {
             try
             {
-                return Ok(Appdal.GetAppointmentbasicreport(DeptName,AppDatefrom));
+                return Ok(Appdal.GetAppointmentbasicreport(DeptName, AppDatefrom));
             }
 
             catch (Exception) { return null; }

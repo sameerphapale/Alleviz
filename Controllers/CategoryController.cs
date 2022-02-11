@@ -73,7 +73,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         public ActionResult GetQRCode(int Number)
         {
-            
+
             try
             {
                 return Ok(Catdal.GetQRCode(Number));
