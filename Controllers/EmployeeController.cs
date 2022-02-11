@@ -112,7 +112,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         //[Authorize(Roles = "Admin")]
 
         public ActionResult UpdateEmployeeDetails([FromForm] UpdateEmployee updateEmployee)
-     {
+        {
             try
             {
                 return Ok(Empdal.UpdateEmployeeDetails(updateEmployee));

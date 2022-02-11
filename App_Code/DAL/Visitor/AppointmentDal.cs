@@ -15,10 +15,10 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
         {
 
 
-            
+
             try
             {
-                
+
                 SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
                 cmd.Parameters.AddWithValue("@command", objApp.Command.ToString());
                 cmd.Parameters.AddWithValue("@VisiName", objApp.VisiName.ToString());
@@ -61,7 +61,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("SP_VisitorDetails");
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
 
                 cmd.Parameters.AddWithValue("@command", objApp.Command.ToString());
                 cmd.Parameters.AddWithValue("@AppID", objApp.AppID.ToString());
@@ -223,7 +223,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     Appointment List = new Appointment();
 
 
-                    List.AppID = Convert.ToInt64(dt.Rows[i]["Visiid"].ToString());
+                    List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
                     List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
@@ -417,7 +417,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
                     List.IDProof = dt.Rows[i]["IDProof"].ToString();
                     List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
-//List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
+                    //List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
                     List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
@@ -526,7 +526,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     List.Badge_no = dt.Rows[i]["Badge_no"].ToString();
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
                     List.InDate = Convert.ToDateTime(dt.Rows[i]["InDate"].ToString());
-                  
+
 
 
                     Lists.Add(List);
@@ -551,9 +551,9 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 DataTable dt = new DataTable();
                 List<Appointment> Lists = new List<Appointment>();
 
-                SqlCommand cmd = new SqlCommand("SP_AppointmentDetails");
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
 
-                cmd.Parameters.AddWithValue("@Command", "BIND".ToString());
+                cmd.Parameters.AddWithValue("@Command", "AppDetails".ToString());
                 cmd.Parameters.AddWithValue("@Empid", Empid);
 
                 dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
@@ -562,31 +562,28 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 {
                     Appointment List = new Appointment();
 
-                    //List.Visiid = Convert.ToInt64(dt.Rows[i]["Visiid"].ToString());
-                    //List.Assets = dt.Rows[i]["Assets"].ToString();
-                    //List.VisiName = dt.Rows[i]["VisiName"].ToString();
-                    //List.VehicleNo = dt.Rows[i]["VehicleNo"].ToString();
-                    //List.VisiDesigName = dt.Rows[i]["VisiDesigName"].ToString();
-                    //List.VisiAdd = dt.Rows[i]["VisiAdd"].ToString();
-                    //List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
-                    //List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
-                    //List.Visi_cat_id = Convert.ToInt64(dt.Rows[i]["Visi_cat_id"].ToString());
-                    //List.BranchID_visit = Convert.ToInt64(dt.Rows[i]["BranchID_visit"].ToString());
-                    //List.Deptid_visit = Convert.ToInt64(dt.Rows[i]["Deptid_visit"].ToString());
-                    //List.Purpose_id = Convert.ToInt64(dt.Rows[i]["Purpose_id"].ToString());
-                    //List.Empid = Convert.ToInt64(dt.Rows[i]["Empid"].ToString());
-                    //List.VisiEmailID = dt.Rows[i]["VisiEmailID"].ToString();
-                    //List.AppDatefrom = Convert.ToDateTime(dt.Rows[i]["AppDatefrom"].ToString());
-                    //List.AppDateTo = Convert.ToDateTime(dt.Rows[i]["AppDateTo"].ToString());
-                    //List.AppTimefrom = Convert.ToDateTime(dt.Rows[i]["AppTimefrom"].ToString());
-                    //List.AppTimeto = Convert.ToDateTime(dt.Rows[i]["AppTimeto"].ToString());
-
-
+                    List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
+                    List.Assets = dt.Rows[i]["Assets"].ToString();
+                    List.VisiName = dt.Rows[i]["VisiName"].ToString();
+                    List.VehicleNo = dt.Rows[i]["VehicleNo"].ToString();
+                    List.VisiDesigName = dt.Rows[i]["VisiDesigName"].ToString();
+                    List.VisiAdd = dt.Rows[i]["VisiAdd"].ToString();
+                    List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
+                    List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
+                    List.Visi_cat_id = Convert.ToInt64(dt.Rows[i]["Visi_cat_id"].ToString());
+                    List.BranchID_visit = Convert.ToInt64(dt.Rows[i]["BranchID_visit"].ToString());
+                    List.Deptid_visit = Convert.ToInt64(dt.Rows[i]["Deptid_visit"].ToString());
+                    List.Purpose_id = Convert.ToInt64(dt.Rows[i]["Purpose_id"].ToString());
+                    List.Empid = Convert.ToInt64(dt.Rows[i]["Empid"].ToString());
+                    List.VisiEmailID = dt.Rows[i]["VisiEmailID"].ToString();
+                    List.AppDatefrom = Convert.ToDateTime(dt.Rows[i]["AppDatefrom"].ToString());
+                    List.AppDateTo = Convert.ToDateTime(dt.Rows[i]["AppDateTo"].ToString());
+                    List.AppTimefrom = Convert.ToDateTime(dt.Rows[i]["AppTimefrom"].ToString());
+                    List.AppTimeto = Convert.ToDateTime(dt.Rows[i]["AppTimeto"].ToString());
                     List.IDProof = dt.Rows[i]["IDProof"].ToString();
                     List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
-                   // List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
+                    List.Badge_no = dt.Rows[i]["Badge_no"].ToString();
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
-                    List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
                     List.InDate = Convert.ToDateTime(dt.Rows[i]["InDate"].ToString());
 
@@ -647,7 +644,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
                     List.IDProof = dt.Rows[i]["IDProof"].ToString();
                     List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
-                  //  List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
+                    //  List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
                     List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
@@ -821,7 +818,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
                     List.IDProof = dt.Rows[i]["IDProof"].ToString();
                     List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
-                 //   List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
+                    //   List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
                     List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
@@ -944,7 +941,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     List.AppTimeto = Convert.ToDateTime(dt.Rows[i]["AppTimeto"].ToString());
                     List.IDProof = dt.Rows[i]["IDProof"].ToString();
                     List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
-                  //  List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
+                    //  List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
                     List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());

@@ -127,7 +127,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             try
             {
                 List<MultipleUserHistory> userHistories = new List<MultipleUserHistory>();
-              
+
 
                 var user1 = string.Join(",", users.Username.ToArray());
                 var user2 = string.Join(",", users.MobileNo.ToArray());
@@ -393,7 +393,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
 
-                 
+
                     EmployeeProfile List = new EmployeeProfile();
 
                     List.EMPSRNO = Convert.ToInt64(dt.Rows[i]["EMPSRNO"].ToString());
