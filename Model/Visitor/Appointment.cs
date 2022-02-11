@@ -65,6 +65,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
 
         public class PurposeDetails
         {
+         
             public long Srno { get; set; }
             public string Purpose { get; set; }
         }
