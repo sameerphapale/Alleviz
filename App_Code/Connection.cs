@@ -11,7 +11,6 @@ using VisitorManagementSystemWebApi.App_Code;
 namespace VisitorManagementSystemWebApi.App_Code
 {
 
-
     public class Connection
     {
 
