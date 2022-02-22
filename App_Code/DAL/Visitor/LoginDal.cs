@@ -95,39 +95,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
 
 
-        public List<TestModel> Test()
-        {
-            try
-            {
-                DataTable dt = new DataTable();
-                List<TestModel> List = new List<TestModel>();
-
-               // SqlCommand cmd = new SqlCommand("SP_UserMaster");
-
-               // cmd.Parameters.AddWithValue("@Command", "SELECT".ToString());
-
-               // dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
-
-              //  for (int i = 0; i < dt.Rows.Count; i++)
-               {
-                    TestModel Lists = new TestModel();
-
-              //  List.title = "Event Name";
-               // List.start = "2021-04-11";
-
-                  return List;
-                }
-                //return List;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-            finally
-            {
-
-            }
-        }
+ 
 
         public List<RoleList> GetRoleList()
         {
@@ -150,6 +118,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     List.Role_Name = dt.Rows[i]["Role_Name"].ToString();
                     List.EMPSRNO = Convert.ToInt64(dt.Rows[i]["EMPSRNO"].ToString());
                     List.User_Name = dt.Rows[i]["User_Name"].ToString();
+                    List.Emp_Name = dt.Rows[i]["Emp_Name"].ToString();
 
                     Lists.Add(List);
                 }

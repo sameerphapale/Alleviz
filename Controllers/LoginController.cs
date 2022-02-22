@@ -60,17 +60,7 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
-        //[HttpPost]
-
-        //public ActionResult UserLogOut(string User_Name)
-        //{
-        //    try
-        //    {
-        //        return Ok(login.UserLogOut(User_Name));
-        //    }
-
-        //    catch (Exception) { return null; }
-        //}
+   
 
         [HttpGet]
         public ActionResult GetUserDetails()
@@ -83,17 +73,7 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
-        [HttpGet]
-
-        public ActionResult Test()
-        {
-            try
-            {
-                return Ok(login.Test());
-            }
-
-            catch (Exception) { return null; }
-        }
+  
 
 
 
