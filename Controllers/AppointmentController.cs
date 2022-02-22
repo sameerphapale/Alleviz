@@ -41,6 +41,19 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpPost]
+        public ActionResult InsertVisitorAppointmentBulk([FromBody] VisiBulkUpload visiBulkUpload)
+        {
+            Int32 Result = 0;
+            try
+            {
+                Result = Appdal.InsertVisitorAppointmentBulk(visiBulkUpload);
+
+                return Ok(Result);
+            }
+            catch (Exception) { return Ok(-1); }
+        }
+
+        [HttpPost]
         public ActionResult InsertCoVisitorEntry([FromBody] Appointment AppointmentInsert)
         {
             Int32 Result = 0;
@@ -89,6 +102,32 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult UpdateVisitorDetails([FromForm] Appointment AppointmentInsert)
+        {
+            try
+            {
+                return Ok(Appdal.UpdateVisitorDetails(AppointmentInsert));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+
+        public ActionResult UpdatePersonalTimeLine([FromForm] Appointment AppointmentInsert)
+
+        {
+            try
+            {
+                return Ok(Appdal.UpdatePersonalTimeLine(AppointmentInsert));
+            }
+
+            catch (Exception) { return null; }
+        }
+
         [HttpGet]
 
         public ActionResult GetTodaySheduledAppDetails()
@@ -96,6 +135,19 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.GetTodaySheduledAppDetails());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+
+        [HttpGet]
+
+        public ActionResult SearchTodaySheduledAppDetails(string QRCode)
+        {
+            try
+            {
+                return Ok(Appdal.SearchTodaySheduledAppDetails(QRCode));
             }
 
             catch (Exception) { return null; }
@@ -164,6 +216,18 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetVisitorDeatilsByEmpID(long Empid)
+        {
+            try
+            {
+                return Ok(Appdal.GetVisitorDeatilsByEmpID(Empid));
+            }
+
+            catch (Exception) { return null; }
+        }
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
@@ -187,6 +251,58 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.GetPassDeatilsByVisiId(AppID));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetVisitorVisitedReport(DateTime fromd,DateTime tod,string visitype,string dept,string hostname)
+        {
+            try
+            {
+                return Ok(Appdal.GetVisitorVisitedReport(fromd, tod, visitype, dept, hostname));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetHostList(string dept)
+        {
+            try
+            {
+                return Ok(Appdal.GetHostList(dept));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetVisitorInOutPunchReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname)
+        {
+            try
+            {
+                return Ok(Appdal.GetVisitorInOutPunchReport(fromd, tod, visitype, dept, hostname));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetVisitorAppointmentReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname)
+        {
+            try
+            {
+                return Ok(Appdal.GetVisitorAppointmentReport(fromd, tod, visitype, dept, hostname));
             }
 
             catch (Exception) { return null; }

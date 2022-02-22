@@ -19,8 +19,8 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public long BranchID_visit { get; set; }
         public long Deptid_visit { get; set; }
         public long Purpose_id { get; set; }
-        public DateTime AppDatefrom { get; set; }
-        public DateTime AppDateTo { get; set; }
+        public Nullable<DateTime> AppDatefrom { get; set; }
+        public Nullable<DateTime> AppDateTo { get; set; }
         public Nullable<DateTime> AppTimefrom { get; set; }
         public Nullable<DateTime> AppTimeto { get; set; }
         public string Assets { get; set; }
@@ -35,7 +35,9 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public string VisitorType { get; set; }
         public string IDProof { get; set; }
         public string IDProofNumber { get; set; }
-        public Decimal Temprature { get; set; }
+        public Nullable<Decimal> Temprature { get; set; }
+
+      //  public Nullable<float>Temprature { get; set; }
         public long Host { get; set; }
         public string Badge_no { get; set; }
         public DateTime EntryDate { get; set; }
@@ -55,7 +57,9 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public DateTime OutDate { get; set; }
         public DateTime Premises_Time { get; set; }
         public Int64 AppTypeID { get; set; }
-        
+        public string ConName { get; set; }
+
+
 
         public class AppointmentStartEnd
         {
@@ -76,9 +80,20 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
             public IFormFile FileData { get; set; }
         }
 
+        public class VisiBulkUpload
+        {
+            public string Command { get; set; }
+            public string VisiName { get; set; }
+            public string VisiCompany { get; set; }
+            public long VisiMobileNo { get; set; }
+            public string catName { get; set; }
+            public string Purpose { get; set; }
+            public Nullable<DateTime> AppDatefrom { get; set; }
+        }
+
         public class AppointmentCount
         {
-          
+           public long Sheduled { get; set; }
             public long Visited { get; set; }
             public long WalkIn { get; set; }
             public long InPremises { get; set; }

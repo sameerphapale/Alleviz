@@ -31,6 +31,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
             public string Role_Name { get; set; }
             public long EMPSRNO { get; set; }
             public string User_Name { get; set; }
+            public string Emp_Name { get; set; }
         }
 
         public class TestModel
