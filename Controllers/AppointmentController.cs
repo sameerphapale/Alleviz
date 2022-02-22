@@ -469,6 +469,18 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult GetVisitorCountForSecurity()
+        {
+            try
+            {
+                return Ok(Appdal.GetVisitorCountForSecurity());
+            }
+
+            catch (Exception) { return null; }
+        }
+
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         public ActionResult RemoveAppointment(Int64 Visiid)

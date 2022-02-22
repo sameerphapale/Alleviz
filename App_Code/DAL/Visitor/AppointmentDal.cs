@@ -1466,6 +1466,41 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
             }
         }
 
+
+        public List<AppointmentCount> GetVisitorCountForSecurity()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+
+                List<AppointmentCount> Lists = new List<AppointmentCount>();
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
+
+                cmd.Parameters.AddWithValue("@Command", "VisiCountForSec".ToString());
+               
+                dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+                    AppointmentCount VCount = new AppointmentCount();
+
+                    VCount.InPremises = Convert.ToInt64(dt.Rows[0]["InPremises"].ToString());
+                    VCount.Visited = Convert.ToInt64(dt.Rows[0]["Visited"].ToString());
+
+                    Lists.Add(VCount);
+                }
+                return Lists;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+        }
+
         public Int32 RemoveAppointment(Int64 Visiid)
         {
             Int32 Result = 0;
