@@ -3,10 +3,7 @@
     "additionalProbingPaths": [
       "C:\\Users\\Admin\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\Admin\\.nuget\\packages",
-<<<<<<< HEAD
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-=======
->>>>>>> 8c16a5e0af42818da9a2a4832d8ab65423ad3419
       "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
     ]
   }

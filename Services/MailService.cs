@@ -1,77 +1,69 @@
 ﻿using MailKit.Security;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
 using System.Data;
 using VisitorManagementSystemWebApi.App_Code;
 using VisitorManagementSystemWebApi.App_Code.DAL;
 using VisitorManagementSystemWebApi.Model;
+using static VisitorManagementSystemWebApi.Model.EmailModel;
 
 namespace VisitorManagementSystemWebApi.Services
 {
+
     public class MailService : IMailService
     {
-        //private readonly MailSettings _mailSettings;
+        // private readonly MailSettings _mailSettings;
         //public MailService(IOptions<MailSettings> mailSettings)
         //{
-        //    _mailSettings = mailSettings.Value;
+        //    _mailSettings.
+        //        no.reply.daccess @gmail.co
+        //     _mailSettings = mailSettings.Value;
         //}
-        public void SendEmail(Int64 VISIID)
+        public void SendEmail(Int64 EID)
         {
-            DataSet dsEmail = new DataSet();
-            dsEmail = EmailDAL.GetEMailDetails(VISIID);
-            string VisiEmail = dsEmail.Tables[0].Rows[0][2].ToString();
-            string Subject = dsEmail.Tables[0].Rows[0][2].ToString();
-            string Message = dsEmail.Tables[0].Rows[0][2].ToString();
-            string Sender = dsEmail.Tables[0].Rows[0][2].ToString();
-            string Host = dsEmail.Tables[0].Rows[0][2].ToString();
-            int Port = Convert.ToInt32(dsEmail.Tables[0].Rows[0][2]);
-            string Password = dsEmail.Tables[0].Rows[0][2].ToString();
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(Sender);
-            email.To.Add(MailboxAddress.Parse(VisiEmail));
-            email.Subject = Subject;
-            var builder = new BodyBuilder();
-            builder.HtmlBody = Message;
+            try
+            {
+                Int32 Result = 1;
+                DataSet dsEmail = new DataSet();
+                dsEmail = EmailDAL.GetEMailDetails();
+                if (dsEmail.Tables[0].Rows.Count > 0)
+                {
+                    string Sender = dsEmail.Tables[1].Rows[0]["Email"].ToString();
+                    string Host = dsEmail.Tables[1].Rows[0]["Host"].ToString();
+                    string Name = dsEmail.Tables[1].Rows[0]["Name"].ToString();
+                    int Port = Convert.ToInt32(dsEmail.Tables[1].Rows[0]["Port"]);
+                    string Password = dsEmail.Tables[1].Rows[0]["Password"].ToString();
+                    foreach (DataRow row in dsEmail.Tables[0].Rows)
+                    {
+                        string VisiEmail = row["ETO"].ToString();
+                        string Subject = row["ESUBJECT"].ToString();
+                        string Message = row["EMESSAGE"].ToString();
 
-            //  builder.HtmlBody = "Dear " + mailRequest.VisiName + ",<BR/><BR/>" +
-            //"Here We Confirm your registration for RSVP Verification "  + "<BR/> " +
-            //"for Conforming your presence in 134 th NDA Passing Out Parade, Pune." + "<BR/> " +
-            //"Please visit NDA Gate within Next 96 hrs.<BR/>" +
-            // "Please click below link to RSVP Invitation Card.<BR/>" +
-            // "https://designaxis.co.in/#/rsvp-pass/" + mailRequest.VisiID + "<BR/>" +
-            //  " Please get hard copy of this on your visit." + "<BR/> <BR/>" +
-            //  "Thanks, NDA, Pune";
-
-            //builder.HtmlBody = "Dear " + mailRequest.VisiName + ",<BR/><BR/>" +
-            //     "Here we confirm your registration for" + mailData.Rows[0]["Ceremony_Name"] + ", Pune." + "<BR/>" +
-            //"To confirm your visit please get hard copy of this pass and visit NDA Gate within" + "<BR/>" +
-            //"Next 96 hrs of registrartion date.There you have to scan QR code which is printed on Pass," + "<BR/>" +
-            //" this will confirm your visit for this ceremony." + "<BR/><BR/>" +
-            //"Please click below link to vies Acknowledgement Invitation Card." + "<BR/>" +
-            //"Link:https://designaxis.co.in/#/rsvp-pass/" + mailRequest.VisiID + "<BR/><BR/>" +
-
-            //"<B>Please get below documents while coming <B/>:" + "<BR/>" +
-            //    "1.Original Adhar cards of all visitors." + "<BR/>" +
-            //    "2.Covid 19 Vaccinaation Report of all visitors." + "<BR/>" +
-            //    "3.Police Verification of within one month for all visitors." + "<BR/><BR/>" +
-
-            //    "Thanks," + "<BR/>" +
-            //    "NDA, Pune";
-
-
-
-            email.Body = builder.ToMessageBody();
-            var smtp = new MailKit.Net.Smtp.SmtpClient();
-            //smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.Auto);
-            //smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            smtp.Connect(Host, Port, SecureSocketOptions.Auto);
-            smtp.Authenticate(Sender, Password);
-            smtp.Send(email);
-            smtp.Disconnect(true);
+                        var email = new MimeMessage();
+                        email.Sender = MailboxAddress.Parse(Sender);
+                        email.To.Add(MailboxAddress.Parse(VisiEmail));
+                        email.Subject = Subject;
+                        var builder = new BodyBuilder();
+                        builder.HtmlBody = Message;
+                        email.Body = builder.ToMessageBody();
+                        var smtp = new MailKit.Net.Smtp.SmtpClient();
+                        smtp.Connect(Host, Port, SecureSocketOptions.Auto);
+                        smtp.Authenticate(Sender, Password);
+                        smtp.Send(email);
+                        smtp.Disconnect(true);
+                        //request.EID = Convert.ToInt64(row["EID"]);
+                        EmailDAL.UpdateEmail(EID);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            //return Result;
         }
-
-       
-
     }
 }

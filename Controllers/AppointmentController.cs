@@ -7,8 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using VisitorManagementSystemWebApi.App_Code;
+using VisitorManagementSystemWebApi.App_Code.DAL;
 using VisitorManagementSystemWebApi.App_Code.DAL.Visitor;
 using VisitorManagementSystemWebApi.Model.Visitor;
+using VisitorManagementSystemWebApi.Services;
+using static VisitorManagementSystemWebApi.Model.EmailModel;
 using static VisitorManagementSystemWebApi.Model.Visitor.Appointment;
 
 namespace VisitorManagementSystemWebApi.Controllers
@@ -19,13 +22,17 @@ namespace VisitorManagementSystemWebApi.Controllers
     public class AppointmentController : ControllerBase
     {
         AppointmentDal Appdal;
+        EmailDAL objemail = new EmailDAL();
+        EmailRequest objemailmodel = new EmailRequest();
 
-        public AppointmentController(IConfiguration Configuration)
+        private readonly IMailService objmailService;
+
+        public AppointmentController(IConfiguration Configuration, IMailService mailService)
         {
             SqlHelper helper = new SqlHelper(Configuration);
+            this.objmailService = mailService;
             Appdal = new AppointmentDal();
         }
-
         //[Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult InsertVisitorAppointmenntData([FromBody] Appointment AppointmentInsert)
@@ -34,16 +41,32 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 Result = Appdal.InsertVisitorAppointmenntData(AppointmentInsert);
+                if (Result > 0)
+                {
+                    objemailmodel.AppID = Result;
+                    objemailmodel.VisiCatID = AppointmentInsert.Visi_cat_id;
 
+                    Int32 resultemailsave = objemail.InsertEmailData(objemailmodel);
+                    if (resultemailsave > 0)
+                    {
+                        //objemailmodel.EID = resultemailsave;
+                        objmailService.SendEmail(resultemailsave);
+                    }
+
+                }
                 return Ok(Result);
             }
-            catch (Exception) { return Ok(-1); }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return Ok(-1);
+            }
         }
 
         [HttpPost]
         public ActionResult InsertCoVisitorEntry([FromBody] Appointment AppointmentInsert)
         {
-            Int32 Result = 0;
+            Int64 Result = 0;
             try
             {
                 Result = Appdal.InsertCoVisitorData(AppointmentInsert);
@@ -349,7 +372,6 @@ namespace VisitorManagementSystemWebApi.Controllers
             {
                 return Ok(Appdal.GetVisitorCount(SearchDate));
             }
-
             catch (Exception) { return null; }
         }
 
@@ -361,7 +383,6 @@ namespace VisitorManagementSystemWebApi.Controllers
             {
                 return Ok(Appdal.RemoveAppointment(Visiid));
             }
-
             catch (Exception) { return null; }
         }
     }
