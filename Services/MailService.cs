@@ -15,20 +15,13 @@ namespace VisitorManagementSystemWebApi.Services
 
     public class MailService : IMailService
     {
-        // private readonly MailSettings _mailSettings;
-        //public MailService(IOptions<MailSettings> mailSettings)
-        //{
-        //    _mailSettings.
-        //        no.reply.daccess @gmail.co
-        //     _mailSettings = mailSettings.Value;
-        //}
-        public void SendEmail(Int64 EID)
+        public Int32 SendEmail(Int64 EID)
         {
+            Int32 Result = 1;
             try
             {
-                Int32 Result = 1;
                 DataSet dsEmail = new DataSet();
-                dsEmail = EmailDAL.GetEMailDetails();
+                dsEmail = EmailDAL.GetSMSEMailDetails();
                 if (dsEmail.Tables[0].Rows.Count > 0)
                 {
                     string Sender = dsEmail.Tables[1].Rows[0]["Email"].ToString();
@@ -44,6 +37,7 @@ namespace VisitorManagementSystemWebApi.Services
 
                         var email = new MimeMessage();
                         email.Sender = MailboxAddress.Parse(Sender);
+                        email.From.Add(new MailboxAddress(Name, Sender));
                         email.To.Add(MailboxAddress.Parse(VisiEmail));
                         email.Subject = Subject;
                         var builder = new BodyBuilder();
@@ -54,16 +48,17 @@ namespace VisitorManagementSystemWebApi.Services
                         smtp.Authenticate(Sender, Password);
                         smtp.Send(email);
                         smtp.Disconnect(true);
-                        //request.EID = Convert.ToInt64(row["EID"]);
-                        EmailDAL.UpdateEmail(EID);
                     }
+                    EmailDAL.UpdateEmail(EID);
+
                 }
+                return Result;
             }
             catch (Exception ex)
             {
                 ex.Message.ToString();
             }
-            //return Result;
+            return Result;
         }
     }
 }

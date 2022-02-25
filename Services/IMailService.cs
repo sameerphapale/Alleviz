@@ -8,6 +8,8 @@ namespace VisitorManagementSystemWebApi.Services
 {
     public interface IMailService
     {
-        public void SendEmail(Int64 EID);
+        public Int32 SendEmail(Int64 EID);
+
+        //public Int32 SendEmailVisitorConfirm(Int64 EID);
     }
 }

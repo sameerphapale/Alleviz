@@ -15,6 +15,6 @@ namespace VisitorManagementSystemWebApi.Model
         public string SMessage { get; set; }
         public DateTime SCreatedOn { get; set; }
         public DateTime SSendOn { get; set; }
-        
-        }
+
+    }
 }
