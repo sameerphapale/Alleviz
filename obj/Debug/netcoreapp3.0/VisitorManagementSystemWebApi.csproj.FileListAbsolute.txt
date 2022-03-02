@@ -10519,7 +10519,6 @@ D:\VIJUM\Projects\WEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netco
 D:\VIJUM\Projects\WEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 D:\VIJUM\Projects\WEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 D:\VIJUM\Projects\WEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-D:\VIJUM\Projects\WEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.csproj.AssemblyReference.cache
 D:\VIJUM\Projects\WEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.GeneratedMSBuildEditorConfig.editorconfig
 D:\VIJUM\Projects\WEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.AssemblyInfoInputs.cache
 D:\VIJUM\Projects\WEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.AssemblyInfo.cs
@@ -10682,6 +10681,7 @@ D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\unix\lib\netcoreapp2
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 D:\samir\VMSWEBAPI\Alleviz\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\samir\VMSWEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.csproj.AssemblyReference.cache
 D:\samir\VMSWEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.GeneratedMSBuildEditorConfig.editorconfig
 D:\samir\VMSWEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.AssemblyInfoInputs.cache
 D:\samir\VMSWEBAPI\Alleviz\obj\Debug\netcoreapp3.0\VisitorManagementSystemWebApi.AssemblyInfo.cs

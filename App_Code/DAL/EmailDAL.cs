@@ -16,12 +16,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 {
     public class EmailDAL
     {
-        //private readonly EmailSetting _mailSettings;
-        //public EmailSetting(IOptions<EmailSetting> mailSettings)
-        //{
-        //    _mailSettings = mailSettings.Value;
-        //}
-        public Int32 InsertEmailData(EmailRequest objemail)
+        public Int32 InsertApprovalEmailData(EmailRequest objemail)
         {
             try
             {
@@ -59,7 +54,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 
             }
         }
-        public static DataSet GetEMailDetails()
+        public static DataSet GetSMSEMailDetails()
         {
             DataSet ds = new DataSet();
             try
@@ -78,47 +73,61 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 
         }
 
+        public Int32 InsertVisitorSMSEmailConfirmData(EmailRequest objemail)
+        {
+            try
+            {
+                string query = "EXEC USP_VisiMasterSMSEmailNotificationConfirm " + objemail.AppID;
+                SqlCommand cmd = new SqlCommand("USP_VisiMasterSMSEmailNotificationConfirm");
+                cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+            }
+        }
 
-        //public Int32 SendEmail(EmailRequest request)
-        //{
-        //    Int32 Result = 0;
-        //    DataSet dsEmail = new DataSet();
-        //    dsEmail = EmailDAL.GetEMailDetails(request);
-        //    if (dsEmail.Tables[0].Rows.Count > 0)
-        //    {
+        public static Int32 UpdateSMS(Int64 SID)
+        {
+            try
+            {
+                //string query = "EXEC USP_VisiMasterSMSNotifation1 " + objAppoint.AppID + ",'" + objAppoint.EmployeeList + "' ";
+                SqlCommand cmd = new SqlCommand("SP_SMSMaster");
+                cmd.Parameters.AddWithValue("@Command", "UPDATE");
+                cmd.Parameters.AddWithValue("@SID", SID);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
 
-        //        if (dsEmail.Tables[0].Rows.Count > 1)
-        //        {
-        //            foreach (DataRow row in dsEmail.Tables[0].Rows)
-        //            {
-        //                string VisiEmail = row["ETO"].ToString();
-        //                string Subject = row["ESUBJECT"].ToString(); ;
-        //                string Message = row["EMESSAGE"].ToString(); ;
-        //                string Sender = _mailSettings.Email;
-        //                string Host = _mailSettings.Host;
-        //                int Port = _mailSettings.Port;
-        //                string Password = _mailSettings.Password;
-        //                var email = new MimeMessage();
-        //                email.Sender = MailboxAddress.Parse(Sender);
-        //                email.To.Add(MailboxAddress.Parse(VisiEmail));
-        //                email.Subject = Subject;
-        //                var builder = new BodyBuilder();
-        //                builder.HtmlBody = Message;
-        //                email.Body = builder.ToMessageBody();
-        //                var smtp = new MailKit.Net.Smtp.SmtpClient();
-        //                smtp.Connect(Host, Port, SecureSocketOptions.Auto);
-        //                smtp.Authenticate(Sender, Password);
-        //                smtp.Send(email);
-        //                smtp.Disconnect(true);
+            }
+        }
 
-        //                request.EID = Convert.ToInt64(row["EID"]);
-        //                EmailDAL.UpdateEmail(request);
-        //            }
+        public static DataTable GetVisitorConfirmEMailDetails()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SP_EmailMaster");
+                cmd.Parameters.AddWithValue("@Command", "SELECT");
+                cmd.Parameters.AddWithValue("@EID", null);
+                dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return null;
+            }
+            return dt;
 
-        //        }
-
-        //    }
-        //    return Result;
-        //}
+        }
     }
 }

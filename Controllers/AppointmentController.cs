@@ -23,6 +23,7 @@ namespace VisitorManagementSystemWebApi.Controllers
     {
         AppointmentDal Appdal;
         EmailDAL objemail = new EmailDAL();
+        SMSDAL objsms = new SMSDAL();
         EmailRequest objemailmodel = new EmailRequest();
 
         private readonly IMailService objmailService;
@@ -33,10 +34,11 @@ namespace VisitorManagementSystemWebApi.Controllers
             this.objmailService = mailService;
             Appdal = new AppointmentDal();
         }
-        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult InsertVisitorAppointmenntData([FromBody] Appointment AppointmentInsert)
         {
+            Int32 EID = 0;
+            Int32 SID = 0;
             Int32 Result = 0;
             try
             {
@@ -45,13 +47,23 @@ namespace VisitorManagementSystemWebApi.Controllers
                 {
                     objemailmodel.AppID = Result;
                     objemailmodel.VisiCatID = AppointmentInsert.Visi_cat_id;
-
-                    Int32 resultemailsave = objemail.InsertEmailData(objemailmodel);
-                    if (resultemailsave > 0)
+                    EID = objemail.InsertVisitorSMSEmailConfirmData(objemailmodel);
+                    if (EID > 0)
                     {
-                        //objemailmodel.EID = resultemailsave;
-                        objmailService.SendEmail(resultemailsave);
+                        if (AppointmentInsert.AppTypeID == 1)
+                        {
+
+                            SID = objmailService.SendEmail(EID);
+                            if (SID > 0)
+                                objsms.SendSMS(SID);
+                        }
+                        else
+                        {
+                            objsms.SendSMS(SID);
+                        }
                     }
+
+
 
                 }
                 return Ok(Result);
@@ -295,7 +307,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetVisitorVisitedReport(DateTime fromd,DateTime tod,string visitype,string dept,string hostname)
+        public ActionResult GetVisitorVisitedReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname)
         {
             try
             {

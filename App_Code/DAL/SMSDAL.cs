@@ -13,13 +13,13 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
     public class SMSDAL
     {
         SMSModel objsms = new SMSModel();
-        public static Int32 SendSMS(Int64 SID)
+        public void SendSMS(Int64 SID)
         {
             try
             {
-                   DataSet ds =    GetSMSDetails(SID);
+                DataSet ds = GetSMSDetails(SID);
                 string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
-                string Message = ds.Tables[0].Rows[0]["STo"].ToString();
+                string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
                 if (MobileNumber != null || Message != null)
                 {
                     using (var wb = new WebClient())
@@ -29,20 +29,24 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                         {"apikey" , "YTBjYmYwNDRkODUwNzAyMGQwODA0MGMxZDZlYzQ5MDQ="},
                         {"numbers" , MobileNumber},
                         {"message" , Message},
-                        {"sender" , "DSSPLVMS"}
+                        {"sender" , "DSSEPL"}
                         });
                         string result = System.Text.Encoding.UTF8.GetString(response);
                         //if(result > 0)
                         UpdateSMSDetails(SID);
-                        return 1;
+                        //return 1;
                     }
                 }
                 else
                 {
-                    return -1;
+                    //return -1;
                 }
             }
-            catch (Exception ex) { return 0; }
+            catch (Exception ex)
+            { //return 0;
+              //
+              //}
+            }
 
         }
 
