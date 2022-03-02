@@ -41,7 +41,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public long Host { get; set; }
         public string Badge_no { get; set; }
         public DateTime EntryDate { get; set; }
-        public DateTime InDate { get; set; }
+        public Nullable<DateTime> InDate { get; set; }
 
         public string HostName { get; set; }
         public string DeptName { get; set; }
@@ -51,13 +51,17 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public string QRCode { get; set; }
         public Byte[] VisiPhoto { get; set; }
 
-        public string CoVisitor_Name { get; set; }
-        public long mobileNo { get; set; }
+        public string CoVisiName { get; set; }
+        public string mobileNo { get; set; }
 
-        public DateTime OutDate { get; set; }
-        public DateTime Premises_Time { get; set; }
+        public Nullable<DateTime> OutDate { get; set; }
+
+        public string CoInDate { get; set; }
+        public string CoOutDate { get; set; }
+        public Nullable<DateTime> Premises_Time { get; set; }
         public Int64 AppTypeID { get; set; }
         public string ConName { get; set; }
+        public long Covisiid { get; set; }
 
 
 
@@ -77,6 +81,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public class VisiImageUpload
         {
             public long AppID { get; set; }
+            public long Covisiid { get; set; }
             public IFormFile FileData { get; set; }
         }
 
@@ -98,6 +103,12 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
             public long WalkIn { get; set; }
             public long InPremises { get; set; }
 
+        }
+
+        public class SheduledAppCount
+        {
+            public DateTime AppDatefrom { get; set; }
+            public long VisitorCount { get; set; }
         }
     }
 }

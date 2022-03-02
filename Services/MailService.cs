@@ -55,8 +55,10 @@ namespace VisitorManagementSystemWebApi.Services
                         smtp.Send(email);
                         smtp.Disconnect(true);
                         //request.EID = Convert.ToInt64(row["EID"]);
-                        EmailDAL.UpdateEmail(EID);
+                       
                     }
+
+                    EmailDAL.UpdateEmail(EID);
                 }
             }
             catch (Exception ex)

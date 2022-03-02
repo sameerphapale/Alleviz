@@ -233,6 +233,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                     List.BranchName = dt.Rows[i]["BranchName"].ToString();
                     List.RoleID = Convert.ToInt32(dt.Rows[i]["RoleID"].ToString());
                     List.Status = Convert.ToInt32(dt.Rows[i]["Status"].ToString());
+                    List.Password = dt.Rows[i]["Password"].ToString();
 
 
 
@@ -303,6 +304,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                 cmd.Parameters.AddWithValue("@BranchID", updateEmployee.BranchID.ToString());
                 cmd.Parameters.AddWithValue("@Role_id", updateEmployee.Role_id.ToString());
                 cmd.Parameters.AddWithValue("@Status", updateEmployee.Status.ToString());
+                cmd.Parameters.AddWithValue("@Password", updateEmployee.Password.ToString());
 
 
 

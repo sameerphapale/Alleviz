@@ -97,7 +97,7 @@ namespace VisitorManagementSystemWebApi.App_Code
 
         }
 
-        public static int SaveImageInDatabase(IFormFile image, long AppID)
+        public static int SaveImageInDatabase(IFormFile image, long AppID,long Covisiid)
         {
             Int32 Result = 0;
             byte[] bytedata;
@@ -117,6 +117,7 @@ namespace VisitorManagementSystemWebApi.App_Code
                             cmd.Parameters.AddWithValue("@Command", "IMG_INSERT");
                             cmd.Parameters.AddWithValue("@FileData", strBase64);
                             cmd.Parameters.AddWithValue("@AppID", AppID.ToString());
+                            cmd.Parameters.AddWithValue("@Covisiid", Covisiid.ToString());
                             Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
                         }
                     }

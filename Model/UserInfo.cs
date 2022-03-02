@@ -12,9 +12,9 @@ namespace VisitorManagementSystemWebApi.Model
 
         //  string constr = "Server=103.16.222.181;User Id=Sa;Password=dsspl123@#$%;Database=Visitrack;Pooling = true;";
 
-        string constr = "Server=192.168.10.223;User Id=Sa;Password=dsspl@123;Database=VisiTemp;Pooling = true;";
+          string constr = "Server=192.168.10.223;User Id=Sa;Password=dsspl@123;Database=VisiTemp;Pooling = true;";
 
-       // string constr = "Server=103.16.222.44;User Id=sa;Password=dsspl@123;Database=VisitrackFinal;Pooling = true;";
+        //  string constr = "Server=103.16.222.44;User Id=sa;Password=dsspl@123;Database=VisitrackFinal;Pooling = true;";
         public UserModel GetLoginUser(UserModel login)
         {
             var userinfo = new UserModel();
