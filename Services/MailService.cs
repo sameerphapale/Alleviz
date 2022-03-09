@@ -48,8 +48,11 @@ namespace VisitorManagementSystemWebApi.Services
                         smtp.Authenticate(Sender, Password);
                         smtp.Send(email);
                         smtp.Disconnect(true);
+                        //request.EID = Convert.ToInt64(row["EID"]);
+                       
                     }
-                    EmailDAL.UpdateEmail(EID);
+                    Int32 SID = EmailDAL.UpdateEmail(EID);
+                    return SID;
 
                 }
                 return Result;

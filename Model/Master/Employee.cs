@@ -55,6 +55,7 @@ namespace VisitorManagementSystemWebApi.Model.Master
             public string BranchName { get; set; }
             public int RoleID { get; set; }
             public int Status { get; set; }
+            public string Password { get; set; }
         }
 
         public class EmployeeProfile
@@ -83,6 +84,7 @@ namespace VisitorManagementSystemWebApi.Model.Master
             public long BranchID { get; set; }
             public Int32 Role_id { get; set; }
             public int Status { get; set; }
+            public string Password { get; set; }
         }
 
         public class RoleModel

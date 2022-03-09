@@ -119,7 +119,7 @@ namespace VisitorManagementSystemWebApi.App_Code
                         Result = Convert.ToInt32(cmd.ExecuteScalar());
                         cmd.Connection.Close();
 
-                    }
+                            }
                 }
 
                 return Result;

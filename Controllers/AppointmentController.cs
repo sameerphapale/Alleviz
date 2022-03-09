@@ -102,6 +102,19 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpPost]
+        public ActionResult InsertMettingEntry([FromBody] Appointment AppointmentInsert)
+        {
+            Int64 Result = 0;
+            try
+            {
+                Result = Appdal.InsertMettingEntry(AppointmentInsert);
+
+                return Ok(Result);
+            }
+            catch (Exception) { return Ok(-1); }
+        }
+
+        [HttpPost]
 
         public ActionResult InsertVisitorImg([FromForm] VisiImageUpload visiImageUpload)
         {
@@ -111,7 +124,7 @@ namespace VisitorManagementSystemWebApi.Controllers
                 // Saving Image on Server
                 if (visiImageUpload.FileData.Length > 0)
                 {
-                    return Ok(CommonFunctionLogic.SaveImageInDatabase(visiImageUpload.FileData, visiImageUpload.AppID));
+                    return Ok(CommonFunctionLogic.SaveImageInDatabase(visiImageUpload.FileData, visiImageUpload.AppID,visiImageUpload.Covisiid));
                 }
                 else
                 {
@@ -132,6 +145,20 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.UpdateSheduledVisitorDetails(AppointmentInsert));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult UpdateMettingDetails([FromForm] Appointment AppointmentInsert)
+        {
+            try
+            {
+                return Ok(Appdal.UpdateMettingDetails(AppointmentInsert));
             }
 
             catch (Exception) { return null; }
@@ -228,11 +255,24 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetAppointmentDeatilsByID(long AppID)
+        public ActionResult GetAppointmentDeatilsByID(long AppID,long Covisiid)
+         {
+            try
+            {
+                return Ok(Appdal.GetAppointmentDeatilsByID(AppID, Covisiid));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetAppointmentDeatilsByMonth(int Month)
         {
             try
             {
-                return Ok(Appdal.GetAppointmentDeatilsByID(AppID));
+                return Ok(Appdal.GetAppointmentDeatilsByMonth(Month));
             }
 
             catch (Exception) { return null; }
@@ -278,14 +318,14 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetPassDeatilsByVisiId(long AppID)
+        public ActionResult GetPassDeatilsByVisiId(long AppID,long Covisiid)
         {
             try
             {
-                return Ok(Appdal.GetPassDeatilsByVisiId(AppID));
+                return Ok(Appdal.GetPassDeatilsByVisiId(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -382,11 +422,11 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult BlackVisitor(long AppID)
+        public ActionResult BlackVisitor(long AppID, long Covisiid)
         {
             try
             {
-                return Ok(Appdal.BlackVisitor(AppID));
+                return Ok(Appdal.BlackVisitor(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -394,11 +434,11 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult ExitVisitor(long AppID)
+        public ActionResult ExitVisitor(long AppID,long Covisiid)
         {
             try
             {
-                return Ok(Appdal.ExitVisitor(AppID));
+                return Ok(Appdal.ExitVisitor(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -406,11 +446,11 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult DailyInVisitor(long AppID)
+        public ActionResult DailyInVisitor(long AppID,long Covisiid)
         {
             try
             {
-                return Ok(Appdal.DailyInVisitor(AppID));
+                return Ok(Appdal.DailyInVisitor(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -427,32 +467,56 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
-        [HttpPost]
-        //[Authorize(Roles = "Admin")]
-
-        public ActionResult GetAppointmentDeatilsByBranch(string BranchName)
+        [HttpGet]
+        public ActionResult GetMettingDeatils()
         {
             try
             {
-                return Ok(Appdal.GetAppointmentDeatilsByBranch(BranchName));
+                return Ok(Appdal.GetMettingDeatils());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetAppointmentDeatilsByBranch(long BranchID)
+        {
+            try
+            {
+                return Ok(Appdal.GetAppointmentDeatilsByBranch(BranchID));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult GetAppointmentDeatilsByDept(long DeptId)
+        {
+            try
+            {
+                return Ok(Appdal.GetAppointmentDeatilsByDept(DeptId));
             }
 
             catch (Exception) { return null; }
         }
 
 
-        //[HttpPost]
-        ////[Authorize(Roles = "Admin")]
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
 
-        //public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom)
-        //{
-        //    try
-        //    {
-        //        return Ok(Appdal.GetAppointmentDeatilsByDate(AppDatefrom));
-        //    }
+        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom ,long Empid)
+        {
+            try
+            {
+                return Ok(Appdal.GetAppointmentDeatilsByDate(AppDatefrom, Empid));
+            }
 
-        //    catch (Exception) { return null; }
-        //}
+            catch (Exception) { return null; }
+        }
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
@@ -505,13 +569,36 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
-        [HttpPost]
+        [HttpGet]
         //[Authorize(Roles = "Admin")]
-        public ActionResult RemoveAppointment(Int64 Visiid)
+        public ActionResult GetVisitorCountForSecurity()
         {
             try
             {
-                return Ok(Appdal.RemoveAppointment(Visiid));
+                return Ok(Appdal.GetVisitorCountForSecurity());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult RemoveAppointment(Int64 AppID)
+        {
+            try
+            {
+                return Ok(Appdal.RemoveAppointment(AppID));
+            }
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult RemoveMetting(Int64 Id)
+        {
+            try
+            {
+                return Ok(Appdal.RemoveMetting(Id));
             }
             catch (Exception) { return null; }
         }
