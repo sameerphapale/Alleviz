@@ -31,7 +31,9 @@ namespace VisitorManagementSystemWebApi.Model
             public Int64 VisiCatID { get; set; }
             public List<IFormFile> Attachments { get; set; }
 
+            public string EmployeeList { get; set; }
+
         }
-        
+
     }
 }

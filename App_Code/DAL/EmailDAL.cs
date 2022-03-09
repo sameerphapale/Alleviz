@@ -73,6 +73,27 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 
         }
 
+        public static DataSet GetMeetingEMailDetails()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SP_EmailMaster");
+                cmd.Parameters.AddWithValue("@Command", "SELECTMEET");
+                cmd.Parameters.AddWithValue("@EID", null);
+                ds = SqlHelper.ExtecuteProcedureReturnDataSet(cmd);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return null;
+            }
+            return ds;
+
+        }
+
+
+        #region SMS
         public Int32 InsertVisitorSMSEmailConfirmData(EmailRequest objemail)
         {
             try
@@ -111,6 +132,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             }
         }
 
+        #endregion
         public static DataTable GetVisitorConfirmEMailDetails()
         {
             DataTable dt = new DataTable();
@@ -128,6 +150,24 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             }
             return dt;
 
+        }
+
+        public Int32 InsertMeetingEmailData(EmailRequest objemail)
+        {
+            try
+            {
+                string query = "EXEC USP_InternalMeetingEmailNotification" + objemail.EmployeeList;
+                SqlCommand cmd = new SqlCommand("USP_InternalMeetingEmailNotification");
+                cmd.Parameters.AddWithValue("@ListEmpID", objemail.EmployeeList);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+            }
         }
     }
 }

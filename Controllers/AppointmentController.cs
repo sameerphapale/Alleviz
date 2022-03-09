@@ -62,9 +62,6 @@ namespace VisitorManagementSystemWebApi.Controllers
                             objsms.SendSMS(SID);
                         }
                     }
-
-
-
                 }
                 return Ok(Result);
             }
@@ -105,10 +102,21 @@ namespace VisitorManagementSystemWebApi.Controllers
         public ActionResult InsertMettingEntry([FromBody] Appointment AppointmentInsert)
         {
             Int64 Result = 0;
+            Int32 EID = 0;
+            Int32 SID = 0;
             try
             {
-                Result = Appdal.InsertMettingEntry(AppointmentInsert);
 
+                Result = Appdal.InsertMettingEntry(AppointmentInsert);
+                if (Result > 0)
+                {
+                    objemailmodel.EmployeeList = AppointmentInsert.Employeeid;
+                    EID = objemail.InsertMeetingEmailData(objemailmodel);
+                    if (EID > 0)
+                    {
+                     objmailService.SendEmail(EID);
+                    }
+                }
                 return Ok(Result);
             }
             catch (Exception) { return Ok(-1); }
@@ -124,7 +132,7 @@ namespace VisitorManagementSystemWebApi.Controllers
                 // Saving Image on Server
                 if (visiImageUpload.FileData.Length > 0)
                 {
-                    return Ok(CommonFunctionLogic.SaveImageInDatabase(visiImageUpload.FileData, visiImageUpload.AppID,visiImageUpload.Covisiid));
+                    return Ok(CommonFunctionLogic.SaveImageInDatabase(visiImageUpload.FileData, visiImageUpload.AppID, visiImageUpload.Covisiid));
                 }
                 else
                 {
@@ -255,8 +263,8 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetAppointmentDeatilsByID(long AppID,long Covisiid)
-         {
+        public ActionResult GetAppointmentDeatilsByID(long AppID, long Covisiid)
+        {
             try
             {
                 return Ok(Appdal.GetAppointmentDeatilsByID(AppID, Covisiid));
@@ -321,7 +329,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetPassDeatilsByVisiId(long AppID,long Covisiid)
+        public ActionResult GetPassDeatilsByVisiId(long AppID, long Covisiid)
         {
             try
             {
@@ -434,7 +442,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult ExitVisitor(long AppID,long Covisiid)
+        public ActionResult ExitVisitor(long AppID, long Covisiid)
         {
             try
             {
@@ -446,7 +454,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult DailyInVisitor(long AppID,long Covisiid)
+        public ActionResult DailyInVisitor(long AppID, long Covisiid)
         {
             try
             {
@@ -508,7 +516,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom ,long Empid)
+        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom, long Empid)
         {
             try
             {

@@ -37,7 +37,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public string IDProofNumber { get; set; }
         public Nullable<Decimal> Temprature { get; set; }
 
-      //  public Nullable<float>Temprature { get; set; }
+        //  public Nullable<float>Temprature { get; set; }
         public long Host { get; set; }
         public string Badge_no { get; set; }
         public DateTime EntryDate { get; set; }
@@ -74,7 +74,9 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public string EmpDept { get; set; }
         public long DeptID { get; set; }
         public long EMPSRNO { get; set; }
-        
+
+
+
 
 
 
@@ -86,7 +88,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
 
         public class PurposeDetails
         {
-         
+
             public long Srno { get; set; }
             public string Purpose { get; set; }
         }
@@ -112,7 +114,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
 
         public class AppointmentCount
         {
-           public long Sheduled { get; set; }
+            public long Sheduled { get; set; }
             public long Visited { get; set; }
             public long WalkIn { get; set; }
             public long InPremises { get; set; }

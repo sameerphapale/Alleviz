@@ -8482,22 +8482,25 @@
   },
   "packageFolders": {
     "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\samir\\visitrackGit\\Alleviz\\VisitorManagementSystemWebApi.csproj",
+      "projectUniqueName": "D:\\VIJUM\\Projects\\WEBAPI\\Alleviz\\VisitorManagementSystemWebApi.csproj",
       "projectName": "VisitorManagementSystemWebApi",
-      "projectPath": "D:\\samir\\visitrackGit\\Alleviz\\VisitorManagementSystemWebApi.csproj",
+      "projectPath": "D:\\VIJUM\\Projects\\WEBAPI\\Alleviz\\VisitorManagementSystemWebApi.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\samir\\visitrackGit\\Alleviz\\obj\\",
+      "outputPath": "D:\\VIJUM\\Projects\\WEBAPI\\Alleviz\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -8603,7 +8606,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

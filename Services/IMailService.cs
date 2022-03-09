@@ -10,6 +10,6 @@ namespace VisitorManagementSystemWebApi.Services
     {
         public Int32 SendEmail(Int64 EID);
 
-        //public Int32 SendEmailVisitorConfirm(Int64 EID);
+        //public Int32 SendMeetingEmail(Int64 EID);
     }
 }
