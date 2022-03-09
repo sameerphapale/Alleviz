@@ -463,8 +463,10 @@ namespace VisitorManagementSystemWebApi.Controllers
             {
                 return Ok(Appdal.GetAppointmentStartEndTime(AppDatefrom));
             }
-
-            catch (Exception) { return null; }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         [HttpPost]
@@ -475,20 +477,20 @@ namespace VisitorManagementSystemWebApi.Controllers
             {
                 return Ok(Appdal.GetPersonaltimelineStartEndTime(AppDatefrom, Empid));
             }
-
-            catch (Exception) { return null; }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-
         public ActionResult GetAppointmentbasicreport(string DeptName, string AppDatefrom)
         {
             try
             {
                 return Ok(Appdal.GetAppointmentbasicreport(DeptName, AppDatefrom));
             }
-
             catch (Exception) { return null; }
         }
 
