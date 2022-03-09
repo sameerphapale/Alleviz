@@ -102,6 +102,19 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpPost]
+        public ActionResult InsertMettingEntry([FromBody] Appointment AppointmentInsert)
+        {
+            Int64 Result = 0;
+            try
+            {
+                Result = Appdal.InsertMettingEntry(AppointmentInsert);
+
+                return Ok(Result);
+            }
+            catch (Exception) { return Ok(-1); }
+        }
+
+        [HttpPost]
 
         public ActionResult InsertVisitorImg([FromForm] VisiImageUpload visiImageUpload)
         {
@@ -132,6 +145,20 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.UpdateSheduledVisitorDetails(AppointmentInsert));
+            }
+
+            catch (Exception) { return null; }
+        }
+
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+
+        public ActionResult UpdateMettingDetails([FromForm] Appointment AppointmentInsert)
+        {
+            try
+            {
+                return Ok(Appdal.UpdateMettingDetails(AppointmentInsert));
             }
 
             catch (Exception) { return null; }
@@ -395,11 +422,11 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult BlackVisitor(long AppID)
+        public ActionResult BlackVisitor(long AppID, long Covisiid)
         {
             try
             {
-                return Ok(Appdal.BlackVisitor(AppID));
+                return Ok(Appdal.BlackVisitor(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -407,11 +434,11 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult ExitVisitor(long AppID)
+        public ActionResult ExitVisitor(long AppID,long Covisiid)
         {
             try
             {
-                return Ok(Appdal.ExitVisitor(AppID));
+                return Ok(Appdal.ExitVisitor(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -419,11 +446,11 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult DailyInVisitor(long AppID)
+        public ActionResult DailyInVisitor(long AppID,long Covisiid)
         {
             try
             {
-                return Ok(Appdal.DailyInVisitor(AppID));
+                return Ok(Appdal.DailyInVisitor(AppID, Covisiid));
             }
 
             catch (Exception) { return null; }
@@ -435,6 +462,17 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.GetPurposeDeatils());
+            }
+
+            catch (Exception) { return null; }
+        }
+
+        [HttpGet]
+        public ActionResult GetMettingDeatils()
+        {
+            try
+            {
+                return Ok(Appdal.GetMettingDeatils());
             }
 
             catch (Exception) { return null; }
@@ -470,11 +508,11 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom)
+        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom ,long Empid)
         {
             try
             {
-                return Ok(Appdal.GetAppointmentDeatilsByDate(AppDatefrom));
+                return Ok(Appdal.GetAppointmentDeatilsByDate(AppDatefrom, Empid));
             }
 
             catch (Exception) { return null; }
@@ -548,6 +586,17 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 return Ok(Appdal.RemoveAppointment(AppID));
+            }
+            catch (Exception) { return null; }
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult RemoveMetting(Int64 Id)
+        {
+            try
+            {
+                return Ok(Appdal.RemoveMetting(Id));
             }
             catch (Exception) { return null; }
         }

@@ -32,9 +32,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                         {"sender" , "DSSEPL"}
                         });
                         string result = System.Text.Encoding.UTF8.GetString(response);
-                        //if(result > 0)
                         UpdateSMSDetails(SID);
-                        //return 1;
                     }
                 }
                 else

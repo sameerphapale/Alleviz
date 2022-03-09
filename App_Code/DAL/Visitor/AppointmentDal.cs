@@ -67,6 +67,8 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
             {
 
                 SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
+
+                cmd.Parameters.AddWithValue("@Empid", objApp.Empid);
                 cmd.Parameters.AddWithValue("@command", objApp.Command.ToString());
                 cmd.Parameters.AddWithValue("@VisiName", objApp.VisiName.ToString());
                 cmd.Parameters.AddWithValue("@VisiCompany", objApp.VisiCompany.ToString());
@@ -95,9 +97,37 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
 
                 cmd.Parameters.AddWithValue("@command", objApp.Command.ToString());
-                cmd.Parameters.AddWithValue("@AppID", objApp.AppID.ToString());
-                cmd.Parameters.AddWithValue("@CoVisitor_Name", objApp.CoVisiName.ToString());
+                cmd.Parameters.AddWithValue("@VisiID", objApp.VisiID.ToString());
+                cmd.Parameters.AddWithValue("@CoVisiName", objApp.CoVisiName.ToString());
                 cmd.Parameters.AddWithValue("@mobileNo", objApp.mobileNo.ToString());
+
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public Int32 InsertMettingEntry(Appointment objApp)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
+
+                cmd.Parameters.AddWithValue("@command", objApp.Command.ToString());
+                cmd.Parameters.AddWithValue("@MettingTitle", objApp.MettingTitle.ToString());
+                cmd.Parameters.AddWithValue("@Datefrom", objApp.Datefrom);
+                cmd.Parameters.AddWithValue("@Fromtime", objApp.Fromtime);
+                cmd.Parameters.AddWithValue("@Totime", objApp.Totime);
+                cmd.Parameters.AddWithValue("@Depatmentid", objApp.Depatmentid);
+                cmd.Parameters.AddWithValue("@Employeeid", objApp.Employeeid);
+                cmd.Parameters.AddWithValue("@ConferenceId", objApp.ConferenceId);
 
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 
@@ -134,6 +164,38 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 cmd.Parameters.AddWithValue("@Assets", objApp.Assets.ToString());
                 cmd.Parameters.AddWithValue("@AppTypeID", objApp.AppTypeID);
                 cmd.Parameters.AddWithValue("@Covisiid", objApp.Covisiid.ToString());
+
+
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+
+            }
+        }
+
+
+        public Int32 UpdateMettingDetails(Appointment objApp)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
+
+                cmd.Parameters.AddWithValue("@Command", "MET_UPDATE".ToString());
+
+                cmd.Parameters.AddWithValue("Id", objApp.Id);
+                cmd.Parameters.AddWithValue("@MettingTitle", objApp.MettingTitle.ToString());
+                cmd.Parameters.AddWithValue("@Datefrom", objApp.Datefrom);
+                cmd.Parameters.AddWithValue("@Fromtime", objApp.Fromtime);
+                cmd.Parameters.AddWithValue("@Totime", objApp.Totime);
+                cmd.Parameters.AddWithValue("@Depatmentid", objApp.Depatmentid);
+                cmd.Parameters.AddWithValue("@Employeeid", objApp.Employeeid);
+                cmd.Parameters.AddWithValue("@ConferenceId", objApp.ConferenceId);
 
 
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
@@ -322,7 +384,9 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 {
                     Appointment List = new Appointment();
 
+
                     List.AppTypeID = Convert.ToInt64(dt.Rows[i]["AppTypeID"].ToString());
+                    List.Covisiid = Convert.ToInt64(dt.Rows[i]["Covisiid"].ToString());
                     List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
@@ -370,6 +434,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
 
                     List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
+                    List.Covisiid = Convert.ToInt64(dt.Rows[i]["Covisiid"].ToString());
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
                     List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
@@ -394,7 +459,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
             }
         }
 
-        public Int32 BlackVisitor(long AppID)
+        public Int32 BlackVisitor(long AppID, long Covisiid)
         {
             Int32 Result = 0;
             try
@@ -403,6 +468,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
                 cmd.Parameters.AddWithValue("@Command", "Block");
                 cmd.Parameters.AddWithValue("@AppID", AppID.ToString());
+                cmd.Parameters.AddWithValue("@Covisiid", Covisiid.ToString());
 
 
                 Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
@@ -430,6 +496,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
 
                     List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
+                    List.Covisiid = Convert.ToInt64(dt.Rows[i]["Covisiid"].ToString());
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.VisiMobileNo = Convert.ToInt64(dt.Rows[i]["VisiMobileNo"].ToString());
                     List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
@@ -485,7 +552,53 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
             }
         }
 
-        public Int32 ExitVisitor(long AppID)
+
+        public List<Appointment> GetMettingDeatils()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                List<Appointment> Lists = new List<Appointment>();
+
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
+
+                cmd.Parameters.AddWithValue("@Command", "MET_SELECT".ToString());
+
+                dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Appointment List = new Appointment();
+
+                    List.Id = Convert.ToInt64(dt.Rows[i]["Id"].ToString());
+                    List.MettingTitle = dt.Rows[i]["MettingTitle"].ToString();
+                    List.Datefrom = Convert.ToDateTime(dt.Rows[i]["Datefrom"].ToString());
+                    List.Fromtime = Convert.ToDateTime(dt.Rows[i]["Fromtime"].ToString());
+                    List.Totime = Convert.ToDateTime(dt.Rows[i]["Totime"].ToString());
+                    List.DeptID = Convert.ToInt64(dt.Rows[i]["DeptID"].ToString());
+                    List.DeptName = dt.Rows[i]["DeptName"].ToString();
+                    List.EMPSRNO = Convert.ToInt64(dt.Rows[i]["EMPSRNO"].ToString());
+                    List.EmpName = dt.Rows[i]["EmpName"].ToString();
+                    List.ConferenceId = Convert.ToInt64(dt.Rows[i]["ConferenceId"].ToString());
+                    List.ConName = dt.Rows[i]["ConName"].ToString();
+                    List.EmpDept = dt.Rows[i]["EmpDept"].ToString();
+
+
+                    Lists.Add(List);
+                }
+                return Lists;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public Int32 ExitVisitor(long AppID,long Covisiid)
         {
             Int32 Result = 0;
             try
@@ -494,6 +607,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
                 cmd.Parameters.AddWithValue("@Command", "VisiOut");
                 cmd.Parameters.AddWithValue("@AppID", AppID.ToString());
+                cmd.Parameters.AddWithValue("@Covisiid", Covisiid.ToString());
 
 
                 Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
@@ -503,7 +617,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
             catch (Exception ex) { return -1; }
         }
 
-        public Int32 DailyInVisitor(long AppID)
+        public Int32 DailyInVisitor(long AppID,long Covisiid)
         {
             Int32 Result = 0;
             try
@@ -512,7 +626,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
                 cmd.Parameters.AddWithValue("@Command", "VisiIn");
                 cmd.Parameters.AddWithValue("@AppID", AppID.ToString());
-
+                cmd.Parameters.AddWithValue("@Covisiid", Covisiid.ToString());
 
                 Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 
@@ -601,6 +715,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
 
                     List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
+                    List.Covisiid = Convert.ToInt64(dt.Rows[i]["Covisiid"].ToString());
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
                     List.Empid = Convert.ToInt64(dt.Rows[i]["Empid"].ToString());
@@ -903,6 +1018,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
 
                     List.AppID = Convert.ToInt64(dt.Rows[i]["AppID"].ToString());
+                    List.Covisiid = Convert.ToInt64(dt.Rows[i]["Covisiid"].ToString());
                     List.VisiName = dt.Rows[i]["VisiName"].ToString();
                     List.Purpose = dt.Rows[i]["Purpose"].ToString();
                     List.VisiCompany = dt.Rows[i]["VisiCompany"].ToString();
@@ -1033,6 +1149,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     List.AppDateTo = Convert.ToDateTime(dt.Rows[i]["AppDateTo"].ToString());
                     List.AppTimefrom = Convert.ToDateTime(dt.Rows[i]["AppTimefrom"].ToString());
                     List.AppTimeto = Convert.ToDateTime(dt.Rows[i]["AppTimeto"].ToString());
+                    List.Premises_Time = Convert.ToDateTime(dt.Rows[i]["Premises_Time"].ToString());
                     List.ConName = dt.Rows[i]["ConName"].ToString();
                     string s = (string)dt.Rows[i]["VisiPhoto"].ToString();
                     byte[] data = Convert.FromBase64String(s);
@@ -1266,7 +1383,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 DataTable dt = new DataTable();
                 List<Appointment> Lists = new List<Appointment>();
 
-                SqlCommand cmd = new SqlCommand("SP_AppointmentDetails");
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
 
                 cmd.Parameters.AddWithValue("@Command", "DeptSerach".ToString());
                 cmd.Parameters.AddWithValue("@DeptId", DeptId);
@@ -1322,17 +1439,18 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
             }
         }
 
-        public List<Appointment> GetAppointmentDeatilsByDate(string AppDatefrom)
+        public List<Appointment> GetAppointmentDeatilsByDate(string AppDatefrom, long Empid)
         {
             try
             {
                 DataTable dt = new DataTable();
                 List<Appointment> Lists = new List<Appointment>();
 
-                SqlCommand cmd = new SqlCommand("SP_AppointmentDetails");
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
 
                 cmd.Parameters.AddWithValue("@Command", "DateSerach".ToString());
                 cmd.Parameters.AddWithValue("@AppDatefrom", AppDatefrom);
+                cmd.Parameters.AddWithValue("@Empid", Empid);
 
                 dt = SqlHelper.ExtecuteProcedureReturnDataTable(cmd);
 
@@ -1364,7 +1482,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                     List.IDProofNumber = dt.Rows[i]["IDProofNumber"].ToString();
                    // List.Badge_no = Convert.ToInt64(dt.Rows[i]["Badge_no"].ToString());
                     List.Temprature = Convert.ToDecimal(dt.Rows[i]["Temprature"].ToString());
-                    List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
+                   // List.Host = Convert.ToInt64(dt.Rows[i]["Host"].ToString());
                     List.EntryDate = Convert.ToDateTime(dt.Rows[i]["EntryDate"].ToString());
                     List.InDate = Convert.ToDateTime(dt.Rows[i]["InDate"].ToString());
 
@@ -1633,6 +1751,23 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
                 cmd.Parameters.AddWithValue("@Command", "DELETE");
                 cmd.Parameters.AddWithValue("@AppID", AppID.ToString());
 
+
+                Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+
+                return Result;
+            }
+            catch (Exception ex) { return -1; }
+        }
+
+        public Int32 RemoveMetting(Int64 Id)
+        {
+            Int32 Result = 0;
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand("Sp_VisitorAppoinmentMaster");
+                cmd.Parameters.AddWithValue("@Command", "Del_Metting");
+                cmd.Parameters.AddWithValue("@Id", Id.ToString());
 
                 Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 

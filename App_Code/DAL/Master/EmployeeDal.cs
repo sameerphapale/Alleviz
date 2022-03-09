@@ -49,15 +49,15 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                 SqlCommand cmd = new SqlCommand("SP_EmployeeMaster");
 
                 cmd.Parameters.AddWithValue("@command", bulkEmployee.Command.ToString());
-                cmd.Parameters.AddWithValue("@Emp_Name", bulkEmployee.Emp_Name.ToString());
-                cmd.Parameters.AddWithValue("@ContactNo", bulkEmployee.ContactNo.ToString());
-                cmd.Parameters.AddWithValue("@Email", bulkEmployee.Email.ToString());
-                cmd.Parameters.AddWithValue("@DeptName", bulkEmployee.DeptID.ToString());
-                cmd.Parameters.AddWithValue("@Designame", bulkEmployee.DesigID.ToString());
-                cmd.Parameters.AddWithValue("@BranchName", bulkEmployee.BranchID.ToString());
-                cmd.Parameters.AddWithValue("@Role_Name", bulkEmployee.RoleID.ToString());
-                cmd.Parameters.AddWithValue("@User_Name", bulkEmployee.User_Name.ToString());
-                cmd.Parameters.AddWithValue("@Password", bulkEmployee.Password.ToString());
+                cmd.Parameters.AddWithValue("@Emp_Name", bulkEmployee.Emp_Name.ToString().Trim());
+                cmd.Parameters.AddWithValue("@ContactNo", bulkEmployee.ContactNo.ToString().Trim());
+                cmd.Parameters.AddWithValue("@Email", bulkEmployee.Email.ToString().Trim());
+                cmd.Parameters.AddWithValue("@DeptName", bulkEmployee.DeptID.ToString().Trim());
+                cmd.Parameters.AddWithValue("@Designame", bulkEmployee.DesigID.ToString().Trim());
+                cmd.Parameters.AddWithValue("@BranchName", bulkEmployee.BranchID.ToString().Trim());
+                cmd.Parameters.AddWithValue("@Role_Name", bulkEmployee.RoleID.ToString().Trim());
+                cmd.Parameters.AddWithValue("@User_Name", bulkEmployee.User_Name.ToString().Trim());
+                cmd.Parameters.AddWithValue("@Password", bulkEmployee.Password.ToString().Trim());
 
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 

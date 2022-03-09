@@ -8487,11 +8487,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\samir\\VMSWEBAPI\\Alleviz\\VisitorManagementSystemWebApi.csproj",
+      "projectUniqueName": "D:\\samir\\visitrackGit\\Alleviz\\VisitorManagementSystemWebApi.csproj",
       "projectName": "VisitorManagementSystemWebApi",
-      "projectPath": "D:\\samir\\VMSWEBAPI\\Alleviz\\VisitorManagementSystemWebApi.csproj",
+      "projectPath": "D:\\samir\\visitrackGit\\Alleviz\\VisitorManagementSystemWebApi.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\samir\\VMSWEBAPI\\Alleviz\\obj\\",
+      "outputPath": "D:\\samir\\visitrackGit\\Alleviz\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

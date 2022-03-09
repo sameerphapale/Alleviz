@@ -51,7 +51,8 @@ namespace VisitorManagementSystemWebApi.Services
                         //request.EID = Convert.ToInt64(row["EID"]);
                        
                     }
-                    EmailDAL.UpdateEmail(EID);
+                    Int32 SID = EmailDAL.UpdateEmail(EID);
+                    return SID;
 
                 }
                 return Result;

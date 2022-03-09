@@ -63,6 +63,19 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public string ConName { get; set; }
         public long Covisiid { get; set; }
 
+        public string MettingTitle { get; set; }
+        public Nullable<DateTime> Datefrom { get; set; }
+        public Nullable<DateTime> Fromtime { get; set; }
+        public Nullable<DateTime> Totime { get; set; }
+        public string Depatmentid { get; set; }
+        public string Employeeid { get; set; }
+        public long Id { get; set; }
+        public string EmpName { get; set; }
+        public string EmpDept { get; set; }
+        public long DeptID { get; set; }
+        public long EMPSRNO { get; set; }
+        
+
 
 
         public class AppointmentStartEnd
@@ -88,6 +101,7 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public class VisiBulkUpload
         {
             public string Command { get; set; }
+            public long Empid { get; set; }
             public string VisiName { get; set; }
             public string VisiCompany { get; set; }
             public long VisiMobileNo { get; set; }
