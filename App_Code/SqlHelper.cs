@@ -127,6 +127,29 @@ namespace VisitorManagementSystemWebApi.App_Code
             catch (Exception ex) { return -5; }
 
         }
+        public static string ExtecuteProcedureReturnString(SqlCommand cmd)
+        {
+            try
+            {
+                string Result = "";
+                using (var sqlConnection = new SqlConnection(ConnectionString))
+                {
+                    using (cmd.Connection = sqlConnection)
+                    {
+
+                        cmd.Connection.Open();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        Result = cmd.ExecuteScalar().ToString();
+                        cmd.Connection.Close();
+
+                    }
+                }
+
+                return Result;
+            }
+            catch (Exception ex) { return ex.Message.ToString(); }
+
+        }
 
         public static Int32 ExtecuteInlineQueryToReturnInteger(SqlCommand cmd)
         {

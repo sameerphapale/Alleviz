@@ -43,24 +43,36 @@ namespace VisitorManagementSystemWebApi.Controllers
             try
             {
                 Result = Appdal.InsertVisitorAppointmenntData(AppointmentInsert);
+                return Ok(Result);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return Ok(-1);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SendVisitorEmailSMS([FromBody] Appointment obj)
+        {
+            Int32 Result = 0;
+            Int32 SID = 0;
+            try
+            {
+                objemailmodel.AppID = obj.AppID;
+                objemailmodel.AppTypeID = obj.AppTypeID;
+                Result = objemail.InsertVisitorSMSEmailConfirmData(objemailmodel);
                 if (Result > 0)
                 {
-                    objemailmodel.AppID = Result;
-                    objemailmodel.VisiCatID = AppointmentInsert.Visi_cat_id;
-                    EID = objemail.InsertVisitorSMSEmailConfirmData(objemailmodel);
-                    if (EID > 0)
+                    if (obj.AppTypeID == 1)
                     {
-                        if (AppointmentInsert.AppTypeID == 1)
-                        {
-
-                            SID = objmailService.SendEmail(EID);
-                            if (SID > 0)
-                                objsms.SendSMS(SID);
-                        }
-                        else
-                        {
+                        SID = objmailService.SendEmail(Result);
+                        if (SID > 0)
                             objsms.SendSMS(SID);
-                        }
+                    }
+                    else
+                    {
+                        objsms.SendSMS(Result);
                     }
                 }
                 return Ok(Result);
@@ -72,6 +84,27 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult SendInternalMeetingEmail([FromBody] Appointment obj)
+        {
+            Int32 EID = 0;
+            try
+            {
+
+                objemailmodel.EmployeeList = obj.Employeeid;
+                EID = objemail.InsertMeetingEmailData(objemailmodel);
+                if (EID > 0)
+                {
+                    objmailService.SendEmail(EID);
+                }
+                return Ok(EID);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return Ok(-1);
+            }
+        }
         [HttpPost]
         public ActionResult InsertVisitorAppointmentBulk([FromBody] VisiBulkUpload visiBulkUpload)
         {
@@ -102,21 +135,11 @@ namespace VisitorManagementSystemWebApi.Controllers
         public ActionResult InsertMettingEntry([FromBody] Appointment AppointmentInsert)
         {
             Int64 Result = 0;
-            Int32 EID = 0;
-            Int32 SID = 0;
             try
             {
 
                 Result = Appdal.InsertMettingEntry(AppointmentInsert);
-                if (Result > 0)
-                {
-                    objemailmodel.EmployeeList = AppointmentInsert.Employeeid;
-                    EID = objemail.InsertMeetingEmailData(objemailmodel);
-                    if (EID > 0)
-                    {
-                     objmailService.SendEmail(EID);
-                    }
-                }
+
                 return Ok(Result);
             }
             catch (Exception) { return Ok(-1); }

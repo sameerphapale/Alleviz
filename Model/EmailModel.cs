@@ -29,6 +29,7 @@ namespace VisitorManagementSystemWebApi.Model
             public DateTime ESendOn { get; set; }
             public Int64 AppID { get; set; }
             public Int64 VisiCatID { get; set; }
+            public Int64 AppTypeID { get; set; }
             public List<IFormFile> Attachments { get; set; }
 
             public string EmployeeList { get; set; }

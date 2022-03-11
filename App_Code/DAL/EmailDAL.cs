@@ -101,6 +101,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 string query = "EXEC USP_VisiMasterSMSEmailNotificationConfirm " + objemail.AppID;
                 SqlCommand cmd = new SqlCommand("USP_VisiMasterSMSEmailNotificationConfirm");
                 cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
+                cmd.Parameters.AddWithValue("@AppTypeID", objemail.AppTypeID);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
             }
             catch (Exception ex)

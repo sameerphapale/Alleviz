@@ -35,15 +35,9 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                         UpdateSMSDetails(SID);
                     }
                 }
-                else
-                {
-                    //return -1;
-                }
             }
             catch (Exception ex)
-            { //return 0;
-              //
-              //}
+            {
             }
 
         }
