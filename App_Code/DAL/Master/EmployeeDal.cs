@@ -1,7 +1,11 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using static VisitorManagementSystemWebApi.Model.Master.Employee;
@@ -10,7 +14,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 {
     public class EmployeeDal
     {
-
         public Int32 InsertEmployeeData(InsertEmployee insertEmployee)
         {
             try
@@ -41,35 +44,62 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
             }
         }
+       
+        #region Old Bulk Upload
+        //public Int32 InsertEmployeeBulkData(BulkEmployee bulkEmployee)
+        //{
+        //    SqlCommand cmd = new SqlCommand();
+        //    try
+        //    {
 
-        public Int32 InsertEmployeeBulkData(BulkEmployee bulkEmployee)
+        //        cmd = new SqlCommand("SP_EmployeeMaster");
+
+        //        cmd.Parameters.AddWithValue("@command", "Bulk");
+        //        cmd.Parameters.AddWithValue("@Emp_Name", bulkEmployee.EmpName.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@ContactNo", bulkEmployee.ContactNo.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@Email", bulkEmployee.Email.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@DeptName", bulkEmployee.DeptName.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@Designame", bulkEmployee.DesigName.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@BranchName", bulkEmployee.BranchName.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@Role_Name", bulkEmployee.RoleName.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@User_Name", bulkEmployee.UserName.ToString().Trim());
+        //        cmd.Parameters.AddWithValue("@Password", bulkEmployee.Password.ToString().Trim());
+        //        return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return -1;
+        //    }
+        //    finally
+        //    {
+
+        //    }
+        //}
+        #endregion
+        public string EmployeeBulkData(BulkEmployee [] bulkEmployee)
         {
-            try
+            string Result = "";
+            foreach (var row in bulkEmployee)
             {
-                SqlCommand cmd = new SqlCommand("SP_EmployeeMaster");
-
-                cmd.Parameters.AddWithValue("@command", bulkEmployee.Command.ToString());
-                cmd.Parameters.AddWithValue("@Emp_Name", bulkEmployee.Emp_Name.ToString().Trim());
-                cmd.Parameters.AddWithValue("@ContactNo", bulkEmployee.ContactNo.ToString().Trim());
-                cmd.Parameters.AddWithValue("@Email", bulkEmployee.Email.ToString().Trim());
-                cmd.Parameters.AddWithValue("@DeptName", bulkEmployee.DeptID.ToString().Trim());
-                cmd.Parameters.AddWithValue("@Designame", bulkEmployee.DesigID.ToString().Trim());
-                cmd.Parameters.AddWithValue("@BranchName", bulkEmployee.BranchID.ToString().Trim());
-                cmd.Parameters.AddWithValue("@Role_Name", bulkEmployee.RoleID.ToString().Trim());
-                cmd.Parameters.AddWithValue("@User_Name", bulkEmployee.User_Name.ToString().Trim());
-                cmd.Parameters.AddWithValue("@Password", bulkEmployee.Password.ToString().Trim());
-
-                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
-
+                SqlCommand cmd = new SqlCommand("SP_EmployeeMasterBulkUpload");
+                cmd.Parameters.AddWithValue("@EmpName", row.EmpName);
+                cmd.Parameters.AddWithValue("@ContactNo", row.ContactNo);
+                cmd.Parameters.AddWithValue("@Email", row.Email);
+                cmd.Parameters.AddWithValue("@DeptName", row.DeptName);
+                cmd.Parameters.AddWithValue("@Designame", row.DeptName);
+                cmd.Parameters.AddWithValue("@BranchName", row.BranchName);
+                cmd.Parameters.AddWithValue("@RoleName", row.RoleName);
+                cmd.Parameters.AddWithValue("@UserName", row.UserName);
+                cmd.Parameters.AddWithValue("@Password", row.Password);
+                Result = SqlHelper.ExecuteProcedureReturnString(cmd);
+                if (Result != "OK")
+                {
+                    return Result;
+                }
             }
-            catch (Exception ex)
-            {
-                return -1;
-            }
-            finally
-            {
-
-            }
+            return Result;
         }
         public List<EmployeeModel> GetEmployeeDeatils()
         {
@@ -252,8 +282,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
             }
         }
-
-
         public List<RoleModel> GetRoleDeatils()
         {
             try
@@ -321,7 +349,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             }
         }
 
-
         public Int32 CheckEmpMNo(long ContactNo)
         {
             Int32 Result = 0;
@@ -339,7 +366,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             }
             catch (Exception ex) { return -1; }
         }
-
 
         public Int32 CheckEmpEmail(string Email)
         {
@@ -375,8 +401,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             }
             catch (Exception ex) { return -1; }
         }
-
-
         public List<EmployeeProfile> GetEmpProfileDetails(string User_Name)
         {
             try

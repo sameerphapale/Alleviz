@@ -3,26 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using VisitorManagementSystemWebApi.App_Code;
 using VisitorManagementSystemWebApi.App_Code.DAL.Master;
 using static VisitorManagementSystemWebApi.Model.Master.Employee;
 
 namespace VisitorManagementSystemWebApi.Controllers
 {
+    
     [EnableCors("CorsPolicy")]
     [Route("api/[controller]/{Action}")]
     [ApiController]
+
+
     public class EmployeeController : ControllerBase
     {
+        private readonly ILogger<EmployeeController> _logger;
+        private IWebHostEnvironment _Environment;
         EmployeeDal Empdal;
 
-        public EmployeeController(IConfiguration Configuration)
+        public EmployeeController(IConfiguration Configuration, ILogger<EmployeeController> logger)
         {
             SqlHelper helper = new SqlHelper(Configuration);
             Empdal = new EmployeeDal();
+            _logger = logger;
         }
 
 
@@ -45,16 +53,16 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult InsertEmployeeBulkUpload([FromBody] BulkEmployee bulkEmployee)
+        public ActionResult InsertEmployeeBulkUpload([FromBody] BulkEmployee[] bulkEmployee)
         {
-            Int32 Result = 0;
+            String Result = "";
             try
+                
             {
-                Result = Empdal.InsertEmployeeBulkData(bulkEmployee);
-
+                Result = Empdal.EmployeeBulkData(bulkEmployee);
                 return Ok(Result);
             }
-            catch (Exception) { return Ok(-1); }
+            catch (Exception) { return Ok(Result); }
         }
 
         [HttpPost]
