@@ -15,7 +15,6 @@ namespace VisitorManagementSystemWebApi.Model.Master
 
         public class DesignationModel
         {
-            //public string Command { get; set; }
             public long DesigID { get; set; }
             public string Designame { get; set; }
         }

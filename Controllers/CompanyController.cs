@@ -26,20 +26,6 @@ namespace VisitorManagementSystemWebApi.Controllers
             compdal = new CompanyDal();
         }
 
-        //[HttpPost]
-        ////[Authorize(Roles = "Admin")]
-
-        //public ActionResult InsertCompanyEntry([FromBody] InsertCompany insertCompany)
-        //{
-        //    Int32 Result = 0;
-        //    try
-        //    {
-        //        Result = compdal.InsertCompanyData(insertCompany);
-
-        //        return Ok(Result);
-        //    }
-        //    catch (Exception) { return Ok(-1); }
-        //}
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]

@@ -11,20 +11,17 @@ namespace VisitorManagementSystemWebApi.Model
     {
 
 
-          string constr = "Server=192.168.10.223;User Id=Sa;Password=dsspl@123;Database=VisiTemp;Pooling = true;";
+        //  string constr = "Server=192.168.10.223;User Id=Sa;Password=dsspl@123;Database=VisiTemp;Pooling = true;";
 
-          // string constr = "Server=103.16.222.44;User Id=sa;Password=dsspl@123;Database=VisitrackFinal;Pooling = true;";
+           string constr = "Server=103.16.222.44;User Id=sa;Password=dsspl@123;Database=VisitrackFinal;Pooling = true;";
 
-          // string constr = "Server=103.16.222.44;User Id=sa;Password=dsspl@123;Database=VisitrackTest;Pooling = true;";
+  
         public UserModel GetLoginUser(UserModel login)
         {
             var userinfo = new UserModel();
             using (SqlConnection con = new SqlConnection(constr))
             {
-                //string sql = string.Format(@"select a.*,b.Role_Name from User_Master as a
-                //                            inner join RoleMast as b on a.role_ID = b.RoleID
-                //                             where User_Name = '{0}' and  Password = '{1}' ", login.Username, login.Password);
-
+               
                 string sql = string.Format(@"select a.*,b.Role_Name from EmployeeMaster as a
                                             inner join RoleMast as b on a.RoleID = b.RoleID
                                              where User_Name = '{0}' and  Password = '{1}' ", login.Username, login.Password);
@@ -34,8 +31,7 @@ namespace VisitorManagementSystemWebApi.Model
                 SqlDataReader rd = cmd.ExecuteReader();
                 while (rd.Read())
                 {
-                   // userinfo.ID = Convert.ToInt64(rd["ID"]);
-                  //  userinfo.Name = rd["Name"].ToString();
+                  
                     userinfo.Username = rd["User_Name"].ToString();
                     userinfo.Password = rd["Password"].ToString();
                     userinfo.Role_Name = rd["Role_Name"].ToString();

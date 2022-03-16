@@ -44,8 +44,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
                 cmd.Parameters.AddWithValue("@catName", insertApprovalAuthority.catName.ToString());
                 cmd.Parameters.AddWithValue("@ApprovalAuthority", insertApprovalAuthority.ApprovalAuthority.ToString());
-
-                //cmd.Parameters.AddWithValue("@VisitorType", insertApprovalAuthority.VisitorType.ToString());
                 cmd.Parameters.AddWithValue("@ApprovalLevel", insertApprovalAuthority.ApprovalLevel.ToString());
                 cmd.Parameters.AddWithValue("@Level1", insertApprovalAuthority.Level1.ToString());
                 cmd.Parameters.AddWithValue("@Level2", insertApprovalAuthority.Level2.ToString());
@@ -254,7 +252,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                 SqlCommand cmd = new SqlCommand("SP_CategoryMaster");
                 cmd.Parameters.AddWithValue("@Command", "DELETE");
                 cmd.Parameters.AddWithValue("@catid", catid.ToString());
-
 
                 Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 

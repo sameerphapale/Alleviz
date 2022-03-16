@@ -42,7 +42,7 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return Ok(-1); }
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
 
         public ActionResult GetBranchDeatils()
         {

@@ -15,7 +15,6 @@ namespace VisitorManagementSystemWebApi.Model.Master
 
         public class DeptModel
         {
-            //public string Command { get; set; }
             public long DeptID { get; set; }
             public string DeptName { get; set; }
         }

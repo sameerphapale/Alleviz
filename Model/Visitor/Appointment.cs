@@ -36,8 +36,6 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
         public string IDProof { get; set; }
         public string IDProofNumber { get; set; }
         public Nullable<Decimal> Temprature { get; set; }
-
-        //  public Nullable<float>Temprature { get; set; }
         public long Host { get; set; }
         public string Badge_no { get; set; }
         public DateTime EntryDate { get; set; }
@@ -102,12 +100,12 @@ namespace VisitorManagementSystemWebApi.Model.Visitor
 
         public class VisiBulkUpload
         {
-            public string Command { get; set; }
+          //  public string Command { get; set; }
             public long Empid { get; set; }
-            public string VisiName { get; set; }
-            public string VisiCompany { get; set; }
-            public long VisiMobileNo { get; set; }
-            public string catName { get; set; }
+            public string VisitorName { get; set; }
+            public string VisitorCompany { get; set; }
+            public long VisitorMobileNo { get; set; }
+            public string CategoryName { get; set; }
             public string Purpose { get; set; }
             public Nullable<DateTime> AppDatefrom { get; set; }
         }

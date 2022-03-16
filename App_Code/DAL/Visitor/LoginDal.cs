@@ -22,13 +22,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Visitor
 
                 cmd.Parameters.AddWithValue("@Command", "CHECK");
                 cmd.Parameters.AddWithValue("@User_Name", User_Name.ToString());
-               // cmd.Parameters.AddWithValue("@Password", Password.ToString());
                 cmd.Parameters.AddWithValue("@NewPass", NewPass.ToString());
-
-             
-                //cmd.Parameters.AddWithValue("@Password", Password.ToString());
-                //cmd.Parameters.AddWithValue("@NewPass", NewPass.ToString());
-
 
                 Result = SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 

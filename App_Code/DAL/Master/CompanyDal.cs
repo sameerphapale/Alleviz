@@ -11,28 +11,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 {
     public class CompanyDal
     {
-        //public Int32 InsertCompanyData(InsertCompany insertCompany)
-        //{
-        //    try
-        //    {
-        //        SqlCommand cmd = new SqlCommand("SP_CompanyMaster");
-
-        //        cmd.Parameters.AddWithValue("@command", insertCompany.Command.ToString());
-        //        cmd.Parameters.AddWithValue("@CompName", insertCompany.CompName.ToString());
         
-
-        //        return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return -1;
-        //    }
-        //    finally
-        //    {
-
-        //    }
-        //}
 
         public List<CompanyModel> GetCompanyDeatils()
         {
@@ -94,10 +73,8 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
                     List.CompID = Convert.ToInt64(dt.Rows[i]["CompID"].ToString());
                     List.CompName = dt.Rows[i]["CompName"].ToString();
-                    //List.CompanyLogo = dt.Rows[i]["CompanyLogo"].ToString();
                     string s = (string)dt.Rows[i]["CompanyLogo"].ToString();
                     byte[] data = Convert.FromBase64String(s);
-                    //var temp =   Convert.ToByte(dt.Rows[i]["CompanyLogo"].ToString());
                     List.CompanyLogo = data;
 
                     Lists.Add(List);

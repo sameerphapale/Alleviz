@@ -34,7 +34,7 @@ namespace VisitorManagementSystemWebApi.Model.Master
 
         public class CategoryModel
         {
-            //public string Command { get; set; }
+            
             public Int32 catid { get; set; }
             public string catName { get; set; }
             public string ApprovalAuthority { get; set; }

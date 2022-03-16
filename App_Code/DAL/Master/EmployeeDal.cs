@@ -30,7 +30,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                 cmd.Parameters.AddWithValue("@Role_id", insertEmployee.Role_id.ToString());
                 cmd.Parameters.AddWithValue("@User_Name", insertEmployee.User_Name.ToString());
                 cmd.Parameters.AddWithValue("@Password", insertEmployee.Password.ToString());
-                //cmd.Parameters.AddWithValue("@Status", insertEmployee.Status.ToString());
+                
 
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
 
@@ -84,11 +84,11 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             foreach (var row in bulkEmployee)
             {
                 SqlCommand cmd = new SqlCommand("SP_EmployeeMasterBulkUpload");
-                cmd.Parameters.AddWithValue("@EmpName", row.EmpName);
+                cmd.Parameters.AddWithValue("@EmployeeName", row.EmployeeName);
                 cmd.Parameters.AddWithValue("@ContactNo", row.ContactNo);
                 cmd.Parameters.AddWithValue("@Email", row.Email);
-                cmd.Parameters.AddWithValue("@DeptName", row.DeptName);
-                cmd.Parameters.AddWithValue("@Designame", row.DeptName);
+                cmd.Parameters.AddWithValue("@DepartmentName", row.DepartmentName);
+                cmd.Parameters.AddWithValue("@DesignationName", row.DesignationName);
                 cmd.Parameters.AddWithValue("@BranchName", row.BranchName);
                 cmd.Parameters.AddWithValue("@RoleName", row.RoleName);
                 cmd.Parameters.AddWithValue("@UserName", row.UserName);
@@ -152,7 +152,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
 
         public List<MultipleUserHistory> CheckData(MultipleUser users)
         {
-            //Int32 Event_Id = 0;
+           
             DataSet covisitorresult = new DataSet();
             try
             {
@@ -164,7 +164,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
                 var user3 = string.Join(",", users.MailId.ToArray());
                 var user4 = string.Join(",", users.RoleName.ToArray());
                 SqlCommand cmd1 = new SqlCommand("[SP_Check_EmpDetails]");
-                // cmd.Parameters.AddWithValue("@Guest_Aadhar_No", adharecrpt);
+                
 
                 cmd1.Parameters.AddWithValue("@Command", "CHECK");
                 cmd1.Parameters.AddWithValue("@User_Name", user1);

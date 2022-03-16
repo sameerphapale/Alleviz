@@ -19,8 +19,6 @@ namespace VisitorManagementSystemWebApi.Model.Master
          
             public long CompID { get; set; }
             public string CompName { get; set; }
-            //public string CompanyLogo { get; set; }
-
             public Byte[] CompanyLogo { get; set; }
         }
         public class ImageUploadModel
