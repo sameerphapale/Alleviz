@@ -9,7 +9,6 @@ namespace VisitorManagementSystemWebApi.Model.Master
     {
         public class InsertEmployee
         {
-
             public string Command { get; set; }
             public string Emp_Name { get; set; }
             public long ContactNo { get; set; }
@@ -20,20 +19,23 @@ namespace VisitorManagementSystemWebApi.Model.Master
             public Int32 Role_id { get; set; }
             public string User_Name { get; set; }
             public string Password { get; set; }
-            
+        }
+        public class EmployeeEmailRequest
+        {
+            public string EmployeeID { get; set; }
+
         }
 
 
         public class BulkEmployee
         {
-            public string EmployeeName { get; set; } 
-            public string EmpName { get; set; } 
 
-            public long ContactNo { get; set; } 
-            public string Email { get; set; } 
-            public string DepartmentName { get; set; } 
-            public string DesignationName { get; set; } 
-            public string BranchName { get; set; } 
+            public string EmpName { get; set; }
+            public long ContactNo { get; set; }
+            public string Email { get; set; }
+            public string DeptName { get; set; }
+            public string DesigName { get; set; }
+            public string BranchName { get; set; }
             public string RoleName { get; set; }
             public string UserName { get; set; }
             public string Password { get; set; }
@@ -71,8 +73,8 @@ namespace VisitorManagementSystemWebApi.Model.Master
         }
 
 
-         public class UpdateEmployee
-         {
+        public class UpdateEmployee
+        {
             public long EMPSRNO { get; set; }
             public string Emp_Name { get; set; }
             public string User_Name { get; set; }
