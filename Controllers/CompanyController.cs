@@ -17,15 +17,12 @@ namespace VisitorManagementSystemWebApi.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-
         CompanyDal compdal;
-
         public CompanyController(IConfiguration Configuration)
         {
             SqlHelper helper = new SqlHelper(Configuration);
             compdal = new CompanyDal();
         }
-
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
