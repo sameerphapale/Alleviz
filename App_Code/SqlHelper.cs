@@ -113,15 +113,13 @@ namespace VisitorManagementSystemWebApi.App_Code
                 {
                     using (cmd.Connection = sqlConnection)
                     {
-
                         cmd.Connection.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
                         Result = Convert.ToInt32(cmd.ExecuteScalar());
                         cmd.Connection.Close();
 
-                            }
+                    }
                 }
-
                 return Result;
             }
             catch (Exception ex) { return -5; }

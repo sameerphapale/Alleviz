@@ -26,16 +26,6 @@ namespace VisitorManagementSystemWebApi.Model.Master
 
         public class BulkEmployee
         {
-            //public List<string> EmpName { get; set; } = new List<string>();
-            //public List<long>   ContactNo { get; set; } = new List<long>();
-            //public List<string> Email { get; set; } = new List<string>();
-            //public List<string> DeptName { get; set; } = new List<string>();
-            //public List<string> DesigName { get; set; } = new List<string>();
-            //public List<string> BranchName { get; set; } = new List<string>();
-            //public List<string> RoleName { get; set; } = new List<string>();
-            //public List<string> UserName { get; set; } = new List<string>();
-            //public List<string> Password { get; set; } = new List<string>();
-
 
             public string EmpName { get; set; } 
             public long ContactNo { get; set; } 

@@ -91,14 +91,12 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             return ds;
 
         }
-
-
-        #region SMS
+        
         public Int32 InsertVisitorSMSEmailConfirmData(EmailRequest objemail)
         {
             try
             {
-                string query = "EXEC USP_VisiMasterSMSEmailNotificationConfirm " + objemail.AppID;
+                //string query = "EXEC USP_VisiMasterSMSEmailNotificationConfirm " + objemail.AppID;
                 SqlCommand cmd = new SqlCommand("USP_VisiMasterSMSEmailNotificationConfirm");
                 cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
                 cmd.Parameters.AddWithValue("@AppTypeID", objemail.AppTypeID);
@@ -112,7 +110,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             {
             }
         }
-
+        #region SMS
         public static Int32 UpdateSMS(Int64 SID)
         {
             try
