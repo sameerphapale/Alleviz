@@ -91,7 +91,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             return ds;
 
         }
-        
+
         public Int32 InsertVisitorSMSEmailConfirmData(EmailRequest objemail)
         {
             try
@@ -158,6 +158,24 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 string query = "EXEC USP_InternalMeetingEmailNotification" + objemail.EmployeeList;
                 SqlCommand cmd = new SqlCommand("USP_InternalMeetingEmailNotification");
                 cmd.Parameters.AddWithValue("@ListEmpID", objemail.EmployeeList);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+            }
+        }
+
+        public Int32 InsertEmployeeEmailData(EmailRequest objemail)
+        {
+            try
+            {
+                string query = "EXEC USP_EmployeeEmailNotification" + objemail.EmployeeList;
+                SqlCommand cmd = new SqlCommand("USP_EmployeeEmailNotification");
+                cmd.Parameters.AddWithValue("@EmpID", objemail.EmployeeList);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
             }
             catch (Exception ex)

@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using VisitorManagementSystemWebApi.Services;
 using VisitorManagementSystemWebApi.App_Code;
+using VisitorManagementSystemWebApi.App_Code.DAL;
 using VisitorManagementSystemWebApi.App_Code.DAL.Master;
+using static VisitorManagementSystemWebApi.Model.EmailModel;
 using static VisitorManagementSystemWebApi.Model.Master.Employee;
+using IMailService = VisitorManagementSystemWebApi.Services.IMailService;
 
 namespace VisitorManagementSystemWebApi.Controllers
 {
-    
+
     [EnableCors("CorsPolicy")]
     [Route("api/[controller]/{Action}")]
     [ApiController]
@@ -23,14 +28,18 @@ namespace VisitorManagementSystemWebApi.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly ILogger<EmployeeController> _logger;
-        private IWebHostEnvironment _Environment;
         EmployeeDal Empdal;
+        EmailDAL objemail = new EmailDAL();
+        SMSDAL objsms = new SMSDAL();
+        EmailRequest objemailmodel = new EmailRequest();
+        private readonly IMailService objmailService;
 
-        public EmployeeController(IConfiguration Configuration, ILogger<EmployeeController> logger)
+        public EmployeeController(IConfiguration Configuration, ILogger<EmployeeController> logger, IMailService mailService)
         {
             SqlHelper helper = new SqlHelper(Configuration);
             Empdal = new EmployeeDal();
             _logger = logger;
+            this.objmailService = mailService;
         }
 
 
@@ -48,16 +57,34 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
             catch (Exception) { return Ok(-1); }
         }
-
+        [HttpPost]
+        public ActionResult SendEmployeeEmail([FromBody] EmployeeEmailRequest obj)
+        {
+            Int32 EID = 0;
+            string Result = "OK";
+            try
+            {
+                objemailmodel.EmployeeList = obj.EmployeeID.ToString();
+                EID = objemail.InsertEmployeeEmailData(objemailmodel);
+                if (EID > 0)
+                {
+                    Result = objmailService.SendEmailReturnString(EID);
+                }
+                return Ok(Result);
+            }
+            catch (Exception ex)
+            {
+                Result = ex.Message.ToString();
+                return Ok(Result);
+            }
+        }
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-
         public ActionResult InsertEmployeeBulkUpload([FromBody] BulkEmployee[] bulkEmployee)
         {
             String Result = "";
             try
-                
             {
                 Result = Empdal.EmployeeBulkData(bulkEmployee);
                 return Ok(Result);
@@ -68,10 +95,8 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         public ActionResult EmpDetailsChecked([FromBody] MultipleUser users)
         {
-
             try
             {
-
                 return Ok(Empdal.CheckData(users));
             }
             catch (Exception) { return Ok(-1); }
