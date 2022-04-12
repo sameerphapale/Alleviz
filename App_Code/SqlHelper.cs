@@ -56,14 +56,11 @@ namespace VisitorManagementSystemWebApi.App_Code
                 {
                     using (cmd.Connection = sqlConnection)
                     {
-
                         cmd.Connection.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
                         SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
                         sqlDataAdapter.Fill(ds);
                         sqlConnection.Close();
-
-
                     }
                 }
             }
@@ -91,8 +88,6 @@ namespace VisitorManagementSystemWebApi.App_Code
                         SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd);
                         sqlDataAdapter.Fill(dt);
                         sqlConnection.Close();
-
-
                     }
                 }
             }
@@ -117,7 +112,6 @@ namespace VisitorManagementSystemWebApi.App_Code
                         cmd.CommandType = CommandType.StoredProcedure;
                         Result = Convert.ToInt32(cmd.ExecuteScalar());
                         cmd.Connection.Close();
-
                     }
                 }
                 return Result;
@@ -134,12 +128,10 @@ namespace VisitorManagementSystemWebApi.App_Code
                 {
                     using (cmd.Connection = sqlConnection)
                     {
-
                         cmd.Connection.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
                         Result = cmd.ExecuteScalar().ToString();
                         cmd.Connection.Close();
-
                     }
                 }
 
@@ -158,12 +150,9 @@ namespace VisitorManagementSystemWebApi.App_Code
                 {
                     using (cmd.Connection = sqlConnection)
                     {
-
                         cmd.Connection.Open();
-
                         Result = Convert.ToInt32(cmd.ExecuteScalar());
                         cmd.Connection.Close();
-
                     }
                 }
 
@@ -182,12 +171,9 @@ namespace VisitorManagementSystemWebApi.App_Code
                 {
                     using (cmd.Connection = sqlConnection)
                     {
-
                         cmd.Connection.Open();
-
                         Result = Convert.ToInt64(cmd.ExecuteScalar());
                         cmd.Connection.Close();
-
                     }
                 }
 

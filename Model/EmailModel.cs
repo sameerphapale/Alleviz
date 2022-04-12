@@ -17,6 +17,7 @@ namespace VisitorManagementSystemWebApi.Model
             public int Port { get; set; }
         }
 
+
         public class EmailRequest
         {
 
@@ -30,9 +31,12 @@ namespace VisitorManagementSystemWebApi.Model
             public Int64 AppID { get; set; }
             public Int64 VisiCatID { get; set; }
             public Int64 AppTypeID { get; set; }
-            public List<IFormFile> Attachments { get; set; }
-
             public string EmployeeList { get; set; }
+            public Int64 HostID { get; set; }
+            public Int64 TotalLevels { get; set; }
+            public Int64 Level { get; set; }
+            public string Command { get; set; }
+            public string Remark { get; set; }
 
         }
 

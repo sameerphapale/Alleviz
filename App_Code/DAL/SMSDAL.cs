@@ -18,23 +18,32 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             try
             {
                 DataSet ds = GetSMSDetails(SID);
-                string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
-                string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
-                if (MobileNumber != null || Message != null)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    using (var wb = new WebClient())
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
+                        string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
+                        string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
+                        if (MobileNumber != null || Message != null)
+                        {
+                            using (var wb = new WebClient())
+                            {
+                                byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
                         {
                         {"apikey" , "YTBjYmYwNDRkODUwNzAyMGQwODA0MGMxZDZlYzQ5MDQ="},
                         {"numbers" , MobileNumber},
                         {"message" , Message},
                         {"sender" , "DSSEPL"}
                         });
-                        string result = System.Text.Encoding.UTF8.GetString(response);
-                        UpdateSMSDetails(SID);
+                                string result = System.Text.Encoding.UTF8.GetString(response);
+
+                            }
+                        }
+
                     }
+                    UpdateSMSDetails(SID);
                 }
+
             }
             catch (Exception ex)
             {

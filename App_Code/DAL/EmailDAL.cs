@@ -16,12 +16,56 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 {
     public class EmailDAL
     {
-        public Int32 InsertApprovalEmailData(EmailRequest objemail)
+        public Int32 InsertHostEmailData(EmailRequest objemail)
         {
             try
             {
-                //string query = "EXEC USP_VisitorSMSEmailNotification " + objemail.AppID +","+ objemail.VisiCatID;
-                SqlCommand cmd = new SqlCommand("USP_VisitorSMSEmailNotification");
+                //string query = "EXEC USP_VisiHostEmailNotification " + objemail.AppID +","+ objemail.VisiCatID;
+                SqlCommand cmd = new SqlCommand("USP_VisiHostEmailNotification");
+                cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
+                cmd.Parameters.AddWithValue("@ApprovalId", objemail.EmployeeList);
+                cmd.Parameters.AddWithValue("@TotalLevels", objemail.TotalLevels);
+                cmd.Parameters.AddWithValue("@Level", objemail.Level);
+                cmd.Parameters.AddWithValue("@Command", objemail.Command);
+                cmd.Parameters.AddWithValue("@Remark", objemail.Remark);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+
+            }
+        }
+        public Int32 InsertApprovalEmailDataAllLevel(EmailRequest objemail)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("USP_VisitorApprovalEmailNotificationAllLevel");
+                cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
+                cmd.Parameters.AddWithValue("@VisiCatID", objemail.VisiCatID);
+                cmd.Parameters.AddWithValue("@ApprovalId", objemail.EmployeeList);
+                cmd.Parameters.AddWithValue("@TotalLevels", objemail.TotalLevels);
+                cmd.Parameters.AddWithValue("@Level", objemail.Level);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+
+            }
+        }
+        public Int32 InsertApprovalEmailDataFirstLevel(EmailRequest objemail)
+        {
+            try
+            {
+                //string query = "EXEC USP_VisitorApprovalEmailNotificationFirstLevel " + objemail.AppID +","+ objemail.VisiCatID;
+                SqlCommand cmd = new SqlCommand("USP_VisitorApprovalEmailNotificationFirstLevel");
                 cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
                 cmd.Parameters.AddWithValue("@VisiCatID", objemail.VisiCatID);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
@@ -72,7 +116,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             return ds;
 
         }
-
         public static DataSet GetMeetingEMailDetails()
         {
             DataSet ds = new DataSet();
@@ -91,8 +134,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             return ds;
 
         }
-
-        public Int32 InsertVisitorSMSEmailConfirmData(EmailRequest objemail)
+        public Int32 InsertVisitorSMSEmailConfirm(EmailRequest objemail)
         {
             try
             {
@@ -150,12 +192,11 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             return dt;
 
         }
-
         public Int32 InsertMeetingEmailData(EmailRequest objemail)
         {
             try
             {
-                string query = "EXEC USP_InternalMeetingEmailNotification" + objemail.EmployeeList;
+                //string query = "EXEC USP_InternalMeetingEmailNotification" + objemail.EmployeeList;
                 SqlCommand cmd = new SqlCommand("USP_InternalMeetingEmailNotification");
                 cmd.Parameters.AddWithValue("@ListEmpID", objemail.EmployeeList);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
@@ -168,7 +209,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             {
             }
         }
-
         public Int32 InsertEmployeeEmailData(EmailRequest objemail)
         {
             try
@@ -176,6 +216,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 string query = "EXEC USP_EmployeeEmailNotification" + objemail.EmployeeList;
                 SqlCommand cmd = new SqlCommand("USP_EmployeeEmailNotification");
                 cmd.Parameters.AddWithValue("@EmpID", objemail.EmployeeList);
+                cmd.Parameters.AddWithValue("@Command", objemail.Command);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
             }
             catch (Exception ex)

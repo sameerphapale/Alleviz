@@ -20,11 +20,7 @@ namespace VisitorManagementSystemWebApi.Model.Master
             public string User_Name { get; set; }
             public string Password { get; set; }
         }
-        public class EmployeeEmailRequest
-        {
-            public string EmployeeID { get; set; }
-
-        }
+       
 
 
         public class BulkEmployee

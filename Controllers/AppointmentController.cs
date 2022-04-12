@@ -21,19 +21,17 @@ namespace VisitorManagementSystemWebApi.Controllers
     [ApiController]
     public class AppointmentController : ControllerBase
     {
+        #region Initilisation
         AppointmentDal Appdal;
-        EmailDAL objemail = new EmailDAL();
-        SMSDAL objsms = new SMSDAL();
-        EmailRequest objemailmodel = new EmailRequest();
 
-        private readonly IMailService objmailService;
-
-        public AppointmentController(IConfiguration Configuration, IMailService mailService)
+        public AppointmentController(IConfiguration Configuration)
         {
             SqlHelper helper = new SqlHelper(Configuration);
-            this.objmailService = mailService;
             Appdal = new AppointmentDal();
         }
+        #endregion
+
+
         [HttpPost]
         public ActionResult InsertVisitorAppointmenntData([FromBody] Appointment AppointmentInsert)
         {
@@ -50,60 +48,6 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
         }
 
-
-        [HttpPost]
-        public ActionResult SendVisitorEmailSMS([FromBody] Appointment obj)
-        {
-            Int32 Result = 0;
-            Int32 SID = 0;
-            try
-            {
-                objemailmodel.AppID = obj.AppID;
-                objemailmodel.AppTypeID = obj.AppTypeID;
-                Result = objemail.InsertVisitorSMSEmailConfirmData(objemailmodel);
-                if (Result > 0)
-                {
-                    if (obj.AppTypeID == 1)
-                    {
-                        SID = objmailService.SendEmail(Result);
-                        if (SID > 0)
-                            objsms.SendSMS(SID);
-                    }
-                    else
-                    {
-                        objsms.SendSMS(Result);
-                    }
-                }
-                return Ok(Result);
-            }
-            catch (Exception ex)
-            {
-                ex.Message.ToString();
-                return Ok(-1);
-            }
-        }
-
-        [HttpPost]
-        public ActionResult SendInternalMeetingEmail([FromBody] Appointment obj)
-        {
-            Int32 EID = 0;
-            try
-            {
-
-                objemailmodel.EmployeeList = obj.Employeeid;
-                EID = objemail.InsertMeetingEmailData(objemailmodel);
-                if (EID > 0)
-                {
-                    objmailService.SendEmail(EID);
-                }
-                return Ok(EID);
-            }
-            catch (Exception ex)
-            {
-                ex.Message.ToString();
-                return Ok(-1);
-            }
-        }
         [HttpPost]
         public ActionResult InsertVisitorAppointmentBulk([FromBody] VisiBulkUpload visiBulkUpload)
         {
@@ -117,9 +61,8 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return Ok(-1); }
         }
 
-
         [HttpPost]
-        public ActionResult InsertVisitorBulkUpload([FromBody] VisiBulkUpload [] visiBulkUpload)
+        public ActionResult InsertVisitorBulkUpload([FromBody] VisiBulkUpload[] visiBulkUpload)
         {
             String Result = "";
             try
@@ -158,7 +101,6 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpPost]
-
         public ActionResult InsertVisitorImg([FromForm] VisiImageUpload visiImageUpload)
         {
 
@@ -167,7 +109,7 @@ namespace VisitorManagementSystemWebApi.Controllers
                 // Saving Image on Server
                 if (visiImageUpload.FileData.Length > 0)
                 {
-                    return Ok(CommonFunctionLogic.SaveImageInDatabase(visiImageUpload.FileData, visiImageUpload.AppID,visiImageUpload.Covisiid));
+                    return Ok(CommonFunctionLogic.SaveImageInDatabase(visiImageUpload.FileData, visiImageUpload.AppID, visiImageUpload.Covisiid));
                 }
                 else
                 {
@@ -182,7 +124,6 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-
         public ActionResult UpdateSheduledVisitorDetails([FromForm] Appointment AppointmentInsert)
         {
             try
@@ -209,7 +150,6 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-
         public ActionResult UpdateVisitorDetails([FromForm] Appointment AppointmentInsert)
         {
             try
@@ -221,7 +161,6 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpPost]
-
         public ActionResult UpdatePersonalTimeLine([FromForm] Appointment AppointmentInsert)
 
         {
@@ -234,7 +173,6 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpGet]
-
         public ActionResult GetTodaySheduledAppDetails(long Empid)
         {
             try
@@ -247,7 +185,6 @@ namespace VisitorManagementSystemWebApi.Controllers
 
 
         [HttpGet]
-
         public ActionResult SearchTodaySheduledAppDetails(string QRCode)
         {
             try
@@ -260,7 +197,6 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpGet]
         //[Authorize(Roles = "Admin")]
-
         public ActionResult GetAppointmentDeatils()
         {
             try
@@ -272,7 +208,6 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpGet]
-
         public ActionResult GetPeriodicPassDetails(long Empid)
         {
             try
@@ -284,7 +219,6 @@ namespace VisitorManagementSystemWebApi.Controllers
         }
 
         [HttpGet]
-
         public ActionResult GetDailyOutPassDetails(long Empid)
         {
             try
@@ -297,9 +231,8 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-
-        public ActionResult GetAppointmentDeatilsByID(long AppID,long Covisiid)
-         {
+        public ActionResult GetAppointmentDeatilsByID(long AppID, long Covisiid)
+        {
             try
             {
                 return Ok(Appdal.GetAppointmentDeatilsByID(AppID, Covisiid));
@@ -311,7 +244,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetAppointmentDeatilsByMonth(int Month,long Empid)
+        public ActionResult GetAppointmentDeatilsByMonth(int Month, long Empid)
         {
             try
             {
@@ -347,24 +280,11 @@ namespace VisitorManagementSystemWebApi.Controllers
             catch (Exception) { return null; }
         }
 
-        //[HttpPost]
-        ////[Authorize(Roles = "Admin")]
-
-        //public ActionResult GetAppointmentDeatilsByDept(string DeptName)
-        //{
-        //    try
-        //    {
-        //        return Ok(Appdal.GetAppointmentDeatilsByDept(DeptName));
-        //    }
-
-        //    catch (Exception) { return null; }
-        //}
-
 
         [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetPassDeatilsByVisiId(long AppID,long Covisiid)
+        public ActionResult GetPassDeatilsByVisiId(long AppID, long Covisiid)
         {
             try
             {
@@ -377,7 +297,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetVisitorVisitedReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname,long RoleId,long Empid)
+        public ActionResult GetVisitorVisitedReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname, long RoleId, long Empid)
         {
             try
             {
@@ -416,11 +336,11 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetVisitorInOutPunchReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname,long RoleId, long Empid)
+        public ActionResult GetVisitorInOutPunchReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname, long RoleId, long Empid)
         {
             try
             {
-                return Ok(Appdal.GetVisitorInOutPunchReport(fromd, tod, visitype, dept, hostname, RoleId,Empid));
+                return Ok(Appdal.GetVisitorInOutPunchReport(fromd, tod, visitype, dept, hostname, RoleId, Empid));
             }
 
             catch (Exception) { return null; }
@@ -429,7 +349,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpGet]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetVisitorAppointmentReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname,long RoleId, long Empid)
+        public ActionResult GetVisitorAppointmentReport(DateTime fromd, DateTime tod, string visitype, string dept, string hostname, long RoleId, long Empid)
         {
             try
             {
@@ -490,7 +410,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult ExitVisitor(long AppID,long Covisiid)
+        public ActionResult ExitVisitor(long AppID, long Covisiid)
         {
             try
             {
@@ -502,7 +422,7 @@ namespace VisitorManagementSystemWebApi.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Admin")]
-        public ActionResult DailyInVisitor(long AppID,long Covisiid)
+        public ActionResult DailyInVisitor(long AppID, long Covisiid)
         {
             try
             {
@@ -550,7 +470,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetPersonalAppointmentDeatilsByBranch(long BranchID,long Empid)
+        public ActionResult GetPersonalAppointmentDeatilsByBranch(long BranchID, long Empid)
         {
             try
             {
@@ -578,7 +498,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetPersonalAppointmentDeatilsByDept(long DeptId,long Empid)
+        public ActionResult GetPersonalAppointmentDeatilsByDept(long DeptId, long Empid)
         {
             try
             {
@@ -607,7 +527,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         [HttpPost]
         //[Authorize(Roles = "Admin")]
 
-        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom ,long Empid)
+        public ActionResult GetAppointmentDeatilsByDate(string AppDatefrom, long Empid)
         {
             try
             {

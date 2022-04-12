@@ -57,28 +57,7 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
             catch (Exception) { return Ok(-1); }
         }
-        [HttpPost]
-        public ActionResult SendEmployeeEmail([FromBody] EmployeeEmailRequest obj)
-        {
-            Int32 EID = 0;
-            string Result = "OK";
-            try
-            {
-                objemailmodel.EmployeeList = obj.EmployeeID.ToString();
-                EID = objemail.InsertEmployeeEmailData(objemailmodel);
-                if (EID > 0)
-                {
-                    Result = objmailService.SendEmailReturnString(EID);
-                }
-                return Ok(Result);
-            }
-            catch (Exception ex)
-            {
-                Result = ex.Message.ToString();
-                return Ok(Result);
-            }
-        }
-
+   
         [HttpPost]
         //[Authorize(Roles = "Admin")]
         public ActionResult InsertEmployeeBulkUpload([FromBody] BulkEmployee[] bulkEmployee)

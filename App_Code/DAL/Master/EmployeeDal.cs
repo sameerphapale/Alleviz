@@ -84,11 +84,11 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL.Master
             foreach (var row in bulkEmployee)
             {
                 SqlCommand cmd = new SqlCommand("SP_EmployeeMasterBulkUpload");
-                cmd.Parameters.AddWithValue("@EmployeeName", row.EmployeeName);
+                cmd.Parameters.AddWithValue("@EmployeeName", row.EmpName);
                 cmd.Parameters.AddWithValue("@ContactNo", row.ContactNo);
                 cmd.Parameters.AddWithValue("@Email", row.Email);
-                cmd.Parameters.AddWithValue("@DepartmentName", row.DepartmentName);
-                cmd.Parameters.AddWithValue("@DesignationName", row.DesignationName);
+                cmd.Parameters.AddWithValue("@DepartmentName", row.DeptName);
+                cmd.Parameters.AddWithValue("@DesignationName", row.DesigName);
                 cmd.Parameters.AddWithValue("@BranchName", row.BranchName);
                 cmd.Parameters.AddWithValue("@RoleName", row.RoleName);
                 cmd.Parameters.AddWithValue("@UserName", row.UserName);
