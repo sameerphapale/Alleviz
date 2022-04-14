@@ -9,7 +9,9 @@ using VisitorManagementSystemWebApi.App_Code.DAL;
 using VisitorManagementSystemWebApi.Model.Visitor;
 using VisitorManagementSystemWebApi.Services;
 using static VisitorManagementSystemWebApi.Model.EmailModel;
+using static VisitorManagementSystemWebApi.Model.SMSModel;
 using static VisitorManagementSystemWebApi.Model.Master.Employee;
+using VisitorManagementSystemWebApi.Model;
 
 namespace VisitorManagementSystemWebApi.Controllers
 {
@@ -20,6 +22,7 @@ namespace VisitorManagementSystemWebApi.Controllers
         private readonly IMailService objmailService;
         EmailDAL objemail = new EmailDAL();
         SMSDAL objsms = new SMSDAL();
+        SMSModel smsmodel = new SMSModel();
 
         public EmailController(IConfiguration Configuration, IMailService mailService)
         {
@@ -93,12 +96,14 @@ namespace VisitorManagementSystemWebApi.Controllers
                     if (obj.AppTypeID == 1)
                     {
                         SID = objmailService.SendEmail(Result);
+                        smsmodel.SID = SID;
                         if (SID > 0)
-                            objsms.SendSMS(SID);
+                            objsms.SendSMS(smsmodel);
                     }
                     else
                     {
-                        objsms.SendSMS(Result);
+                        smsmodel.SID = Result;
+                        objsms.SendSMS(smsmodel);
                     }
                 }
                 return Ok(Result);

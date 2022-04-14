@@ -66,7 +66,7 @@ namespace VisitorManagementSystemWebApi.App_Code
 
         }
 
-        public static int SaveFileInDatabase(IFormFile image,string CompName)
+        public static int SaveFileInDatabase(IFormFile image, string CompName)
         {
             Int32 Result = 0;
             byte[] bytedata;
@@ -97,7 +97,7 @@ namespace VisitorManagementSystemWebApi.App_Code
 
         }
 
-        public static int SaveImageInDatabase(IFormFile image, long AppID,long Covisiid)
+        public static int SaveImageInDatabase(IFormFile image, long AppID, long Covisiid)
         {
             Int32 Result = 0;
             byte[] bytedata;
