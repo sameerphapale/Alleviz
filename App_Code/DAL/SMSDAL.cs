@@ -53,6 +53,44 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 
         }
 
+        public Int32 SendEPassSMS(SMSModel obj)
+        {
+            try
+            {
+                DataSet ds = GetSMSDetails(obj);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        Int64 SID = Convert.ToInt64(ds.Tables[0].Rows[0]["SID"]);
+                        string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
+                        string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
+                        if (MobileNumber != null || Message != null)
+                        {
+                            using (var wb = new WebClient())
+                            {
+                                byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
+                            {
+                            {"apikey" , "YTBjYmYwNDRkODUwNzAyMGQwODA0MGMxZDZlYzQ5MDQ="},
+                            {"numbers" , MobileNumber},
+                            {"message" , Message},
+                            {"sender" , "DSSEPL"}
+                            });
+                                //string result = "";
+                                string result = System.Text.Encoding.UTF8.GetString(response);
+                                SID = obj.SID;
+                            }
+                        }
+                    }
+                    UpdateSMSDetails(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return 1;
+        }
+
         public static Int32 UpdateSMSDetails(SMSModel objupdate)
         {
             try
@@ -93,7 +131,6 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 
         }
 
-
         public Int32 InsertSMSDetails(SMSModel obj)
         {
             try
@@ -113,42 +150,5 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             }
         }
 
-        public Int32 SendEPassSMS(SMSModel obj)
-        {
-            try
-            {
-                DataSet ds = GetSMSDetails(obj);
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        Int64 SID = Convert.ToInt64(ds.Tables[0].Rows[0]["SID"]);
-                        string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
-                        string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
-                        if (MobileNumber != null || Message != null)
-                        {
-                            using (var wb = new WebClient())
-                            {
-                                byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
-                            {
-                            {"apikey" , "YTBjYmYwNDRkODUwNzAyMGQwODA0MGMxZDZlYzQ5MDQ="},
-                            {"numbers" , MobileNumber},
-                            {"message" , Message},
-                            {"sender" , "DSSEPL"}
-                            });
-                                //string result = "";
-                                string result = System.Text.Encoding.UTF8.GetString(response);
-                                SID = obj.SID;
-                            }
-                        }
-                    }
-                    UpdateSMSDetails(obj);
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return 1;
-        }
     }
 }
