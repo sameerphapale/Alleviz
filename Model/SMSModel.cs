@@ -16,8 +16,8 @@ namespace VisitorManagementSystemWebApi.Model
         public DateTime SCreatedOn { get; set; }
         public DateTime SSendOn { get; set; }
         public Int64 AppID { get; set; }
-
         public Int64 Status { get; set; }
+        public string Command { get; set; }
 
     }
 }

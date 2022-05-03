@@ -29,7 +29,7 @@ namespace VisitorManagementSystemWebApi.Controllers
                 SID = objsmsdal.InsertSMSDetails(obj);
                 if (SID > 0)
                 {
-                    objsmsdal.SendEPassSMS(obj);
+                    objsmsdal.SendSMSEPassFeedback(obj);
                 }
                 return Ok(SID);
             }
@@ -40,5 +40,24 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult SendSMSFeedback([FromBody] SMSModel obj)
+        {
+            Int32 SID = 0;
+            try
+            {
+                SID = objsmsdal.InsertSMSDetails(obj);
+                if (SID > 0)
+                {
+                    objsmsdal.SendSMSEPassFeedback(obj);
+                }
+                return Ok(SID);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return Ok(-1);
+            }
+        }
     }
 }

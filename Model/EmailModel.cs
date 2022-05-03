@@ -38,6 +38,8 @@ namespace VisitorManagementSystemWebApi.Model
             public string Command { get; set; }
             public string Remark { get; set; }
 
+            public Int64 MeetingId { get; set; }
+
         }
 
     }

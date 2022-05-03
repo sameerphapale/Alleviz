@@ -199,6 +199,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 //string query = "EXEC USP_InternalMeetingEmailNotification" + objemail.EmployeeList;
                 SqlCommand cmd = new SqlCommand("USP_InternalMeetingEmailNotification");
                 cmd.Parameters.AddWithValue("@ListEmpID", objemail.EmployeeList);
+                cmd.Parameters.AddWithValue("@MeetingID", objemail.MeetingId);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
             }
             catch (Exception ex)

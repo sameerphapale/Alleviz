@@ -53,7 +53,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
 
         }
 
-        public Int32 SendEPassSMS(SMSModel obj)
+        public Int32 SendSMSEPassFeedback(SMSModel obj)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             try
             {
                 SqlCommand cmd = new SqlCommand("SP_SMSMaster");
-                cmd.Parameters.AddWithValue("@Command", "INSERT");
+                cmd.Parameters.AddWithValue("@Command", obj.Command);
                 cmd.Parameters.AddWithValue("@SID", obj.SID);
                 cmd.Parameters.AddWithValue("@AppID", obj.AppID);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
