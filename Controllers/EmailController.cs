@@ -23,7 +23,6 @@ namespace VisitorManagementSystemWebApi.Controllers
         EmailDAL objemail = new EmailDAL();
         SMSDAL objsms = new SMSDAL();
         SMSModel smsmodel = new SMSModel();
-
         public EmailController(IConfiguration Configuration, IMailService mailService)
         {
             SqlHelper helper = new SqlHelper(Configuration);
@@ -137,6 +136,25 @@ namespace VisitorManagementSystemWebApi.Controllers
 
 
         [HttpPost]
+        public ActionResult SendQRCodeInternalMeetingEmail([FromBody] EmailRequest obj)
+        {
+            Int32 EID = 0;
+            try
+            {
+                EID = objemail.InsertMeetingEmailData(obj);
+                if (EID > 0)
+                {
+                    objmailService.SendQRCodeEmail(EID);
+                }
+                return Ok(EID);
+            }
+            catch (Exception ex)
+            {
+                return Ok(EID);
+            }
+        }
+
+        [HttpPost]
         public ActionResult SendEmployeeEmail([FromBody] EmailRequest obj)
         {
             Int32 EID = 0;
@@ -158,5 +176,42 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult SendSMSAlertEmail([FromBody] EmailRequest obj)
+        {
+            Int32 EID = 0;
+            try
+            {
+                EID = objemail.InsertSMSAlertEmailData(obj);
+                if (EID > 0)
+                {
+                    objmailService.SendEmailReturnString(EID);
+                }
+                return Ok(EID);
+            }
+            catch (Exception ex)
+            {
+                return Ok(EID);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SendUnscheduleHostEmail([FromBody] EmailRequest obj)
+        {
+            Int32 EID = 0;
+            try
+            {
+                EID = objemail.InsertUnscheduleHostEmailData(obj);
+                if (EID > 0)
+                {
+                    objmailService.SendEmailReturnString(EID);
+                }
+                return Ok(EID);
+            }
+            catch (Exception ex)
+            {
+                return Ok(EID);
+            }
+        }
     }
 }

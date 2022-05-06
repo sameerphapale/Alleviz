@@ -152,6 +152,7 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             {
             }
         }
+
         #region SMS
         public static Int32 UpdateSMS(Int64 SID)
         {
@@ -210,6 +211,24 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             {
             }
         }
+        public Int32 InsertMeetingQRCodeEmailData(EmailRequest objemail)
+        {
+            try
+            {
+                //string query = "EXEC USP_InternalMeetingEmailNotification" + objemail.EmployeeList;
+                SqlCommand cmd = new SqlCommand("SP_InternalMeetingEmailQRCodeNotification");
+                cmd.Parameters.AddWithValue("@ListEmpID", objemail.EmployeeList);
+                cmd.Parameters.AddWithValue("@MeetingID", objemail.MeetingId);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+            }
+        }
         public Int32 InsertEmployeeEmailData(EmailRequest objemail)
         {
             try
@@ -218,6 +237,42 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 SqlCommand cmd = new SqlCommand("USP_EmployeeEmailNotification");
                 cmd.Parameters.AddWithValue("@EmpID", objemail.EmployeeList);
                 cmd.Parameters.AddWithValue("@Command", objemail.Command);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+            }
+        }
+        public Int32 InsertSMSAlertEmailData(EmailRequest objemail)
+        {
+            try
+            {
+                //string query = "EXEC USP_EmployeeEmailNotification" + objemail.EmployeeList;
+                SqlCommand cmd = new SqlCommand("SP_SMSAlertEmailNotification");
+                //cmd.Parameters.AddWithValue("@EmpID", objemail.EmployeeList);
+                cmd.Parameters.AddWithValue("@Command", objemail.Command);
+                return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            finally
+            {
+            }
+        }
+
+        public Int32 InsertUnscheduleHostEmailData(EmailRequest objemail)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SP_UnscheduleHostEmailNotification");
+                cmd.Parameters.AddWithValue("@EmpID", objemail.HostID);
+                cmd.Parameters.AddWithValue("@AppID", objemail.AppID);
                 return SqlHelper.ExtecuteProcedureReturnInteger(cmd);
             }
             catch (Exception ex)

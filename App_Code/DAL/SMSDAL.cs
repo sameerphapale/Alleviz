@@ -22,26 +22,22 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 DataSet ds = GetSMSDetails(objsend);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
+                    string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
+                    if (MobileNumber != null || Message != null)
                     {
-                        string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
-                        string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
-                        if (MobileNumber != null || Message != null)
+                        using (var wb = new WebClient())
                         {
-                            using (var wb = new WebClient())
-                            {
-                                byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
+                            byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
                         {
                         {"apikey" , "YTBjYmYwNDRkODUwNzAyMGQwODA0MGMxZDZlYzQ5MDQ="},
                         {"numbers" , MobileNumber},
                         {"message" , Message},
                         {"sender" , "DSSEPL"}
                         });
-                                string result = System.Text.Encoding.UTF8.GetString(response);
+                            string result = System.Text.Encoding.UTF8.GetString(response);
 
-                            }
                         }
-
                     }
                     UpdateSMSDetails(objsend);
                 }
@@ -60,26 +56,23 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
                 DataSet ds = GetSMSDetails(obj);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    Int64 SID = Convert.ToInt64(ds.Tables[0].Rows[0]["SID"]);
+                    string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
+                    string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
+                    if (MobileNumber != null || Message != null)
                     {
-                        Int64 SID = Convert.ToInt64(ds.Tables[0].Rows[0]["SID"]);
-                        string MobileNumber = ds.Tables[0].Rows[0]["STo"].ToString();
-                        string Message = ds.Tables[0].Rows[0]["SMessage"].ToString();
-                        if (MobileNumber != null || Message != null)
+                        using (var wb = new WebClient())
                         {
-                            using (var wb = new WebClient())
-                            {
-                                byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
+                            byte[] response = wb.UploadValues("https://api.textlocal.in/send/", new NameValueCollection()
                             {
                             {"apikey" , "YTBjYmYwNDRkODUwNzAyMGQwODA0MGMxZDZlYzQ5MDQ="},
                             {"numbers" , MobileNumber},
                             {"message" , Message},
                             {"sender" , "DSSEPL"}
                             });
-                                //string result = "";
-                                string result = System.Text.Encoding.UTF8.GetString(response);
-                                SID = obj.SID;
-                            }
+                            //string result = "";
+                            string result = System.Text.Encoding.UTF8.GetString(response);
+                            SID = obj.SID;
                         }
                     }
                     UpdateSMSDetails(obj);
@@ -149,6 +142,5 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             {
             }
         }
-
     }
 }
