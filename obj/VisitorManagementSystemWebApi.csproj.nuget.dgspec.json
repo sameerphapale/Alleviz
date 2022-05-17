@@ -48,6 +48,14 @@
               "target": "Package",
               "version": "[4.0.1, )"
             },
+            "GSF.Core": {
+              "target": "Package",
+              "version": "[2.4.28, )"
+            },
+            "Grpc.Core": {
+              "target": "Package",
+              "version": "[2.45.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.0.0, )"
@@ -81,6 +89,10 @@
             "NuGet.Frameworks": {
               "target": "Package",
               "version": "[5.11.0, )"
+            },
+            "QRCoder": {
+              "target": "Package",
+              "version": "[1.4.3, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",

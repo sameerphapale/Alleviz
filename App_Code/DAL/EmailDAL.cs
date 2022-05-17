@@ -283,5 +283,24 @@ namespace VisitorManagementSystemWebApi.App_Code.DAL
             {
             }
         }
+
+        public static DataSet GetQRMailDetails(Int64 MeeetinID)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SP_EmailMaster");
+                cmd.Parameters.AddWithValue("@Command", "SELECTQR");
+                cmd.Parameters.AddWithValue("@MeetingID", MeeetinID);
+                ds = SqlHelper.ExtecuteProcedureReturnDataSet(cmd);
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return null;
+            }
+            return ds;
+
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace VisitorManagementSystemWebApi.Services
 
         public string SendEmailReturnString(Int64 EID);
 
-        public Int32 SendQRCodeEmail(Int64 EID);
+        public Int32 SendQRCodeEmail(Int64 EID, Int64 MeetID);
+
     }
 }

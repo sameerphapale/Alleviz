@@ -134,17 +134,16 @@ namespace VisitorManagementSystemWebApi.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult SendQRCodeInternalMeetingEmail([FromBody] EmailRequest obj)
         {
             Int32 EID = 0;
             try
             {
-                EID = objemail.InsertMeetingEmailData(obj);
+                EID = objemail.InsertMeetingQRCodeEmailData(obj);
                 if (EID > 0)
                 {
-                    objmailService.SendQRCodeEmail(EID);
+                    objmailService.SendQRCodeEmail(EID, obj.MeetingId);
                 }
                 return Ok(EID);
             }
@@ -213,5 +212,8 @@ namespace VisitorManagementSystemWebApi.Controllers
                 return Ok(EID);
             }
         }
+
     }
+
+
 }
